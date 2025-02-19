@@ -1,101 +1,69 @@
-import Image from "next/image";
+// pages/index.js
+
+import Head from 'next/head'
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div>
+      <Head>
+        <title>Zheyuan (James) Chen | Personal Website</title>
+        <meta
+          name="description"
+          content="Data-driven thinker, problem solver, fintech & blockchain enthusiast."
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      </Head>
+      <main style={{ maxWidth: '800px', margin: '0 auto', padding: '1rem' }}>
+        <h1>👋 Hey, I&apos;m Zheyuan (James) Chen!</h1>
+        <p>
+          Welcome to my corner of the internet! I&apos;m a <strong>data-driven thinker, problem solver, and all-around fintech & blockchain enthusiast.</strong>
+        </p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+        <h2>🚀 About Me</h2>
+        <ul>
+          <li>
+            <strong>Background:</strong> With a Economics and Business Analytics background, I thrive at the intersection of <strong>data, markets, and technology</strong>.
+          </li>
+          <li>
+            <strong>What I Do:</strong> By day, I optimize inventory operations at <strong>Neousys Technology</strong>, making supply chain processes smarter and smoother. By night, I&apos;m diving into <strong>crypto, Web3, and fintech projects</strong>—whether it&apos;s building dashboards, exploring smart contracts, or analyzing market trends.
+          </li>
+          <li>
+            <strong>Tech Stack:</strong> Fluent in <strong>Python, SQL, R, Solidity, and Tableau</strong>—basically, I make numbers talk.
+          </li>
+          <li>
+            <strong>Interests:</strong> I geek out over <strong>financial markets, blockchain applications, machine learning, and data visualization</strong>.
+          </li>
+        </ul>
+
+        <h2>🔨 Projects & Work</h2>
+        <ul>
+          <li>
+            <strong>Automating Inventory Workflows:</strong> Built a Flask-based app that slashes <strong>inventory lookup time from 30 minutes to 5 seconds</strong>.
+          </li>
+          <li>
+            <strong>Crypto Market Research:</strong> Explored liquidity pool risks and the correlation between US Treasuries and Ethereum prices.
+          </li>
+          <li>
+            <strong>Fintech & Web3 Exploration:</strong> Constantly tinkering with <strong>blockchain analytics, DeFi dashboards, and smart contracts</strong>.
+          </li>
+        </ul>
+
+        <h2>🎯 What&apos;s Next?</h2>
+        <p>
+          I&apos;m currently building out my <strong>personal projects</strong>, experimenting with <strong>Web3, prescriptive analytics for scheduling, and data visualization</strong>. If you&apos;re into <strong>crypto, fintech, or AI-driven insights</strong>, let&apos;s connect!
+        </p>
+        <p>
+          <a href="https://www.linkedin.com/in/chen0227">LinkedIn</a> |{' '}
+          <a href="https://github.com/playoung2818">GitHub</a> |{' '}
+          <a href="https://dune.com/james0227">Dune Dashboards</a>
+        </p>
+
+        <hr />
+        <p>
+          <em>Zheyuan (James) Chen</em><br />
+          Exploring the world of data, one insight at a time.
+        </p>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
-  );
+  )
 }
+
