@@ -37,8 +37,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 
 
-✔ Step 1: Write blog in Next.js (best.js or page.tsx). /n
-✔ Step 2: Convert to static site (out/) with npm run build. /n
-✔ Step 3: Upload out/ folder to IPFS (Pinata, Fleek, etc.). /n
+✔ Step 1: Write blog in Next.js (best.js or page.tsx). <br />
+✔ Step 2: Convert to static site (out/) with npm run build. <br />
+✔ Step 3: Upload out/ folder to IPFS (Pinata, Fleek, etc.). <br />
 ✔ Step 4: Link ENS (Zheyuan.eth) to IPFS CID.
 
