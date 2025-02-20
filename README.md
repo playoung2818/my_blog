@@ -34,3 +34,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+✔ Step 1: Write blog in Next.js (best.js or page.tsx).
+✔ Step 2: Convert to static site (out/) with npm run build.
+✔ Step 3: Upload out/ folder to IPFS (Pinata, Fleek, etc.).
+✔ Step 4: Link ENS (Zheyuan.eth) to IPFS CID.
+
