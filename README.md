@@ -42,3 +42,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ✔ Step 3: Upload out/ folder to IPFS (Pinata, Fleek, etc.). <br/>
 ✔ Step 4: Link ENS (Zheyuan.eth) to IPFS CID.
 
+
+ssh zheyuanchen@10.0.0.119
+
