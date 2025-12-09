@@ -7,16 +7,16 @@
   --bg-subtle: #0a0f1d;
   --panel: #0f1426;
   --panel-alt: #0c1020;
-  --text-primary: #e8ecf7;
-  --text-muted: #9ca8c6;
+  --text-primary: #0f172a;
+  --text-muted: #4b5563;
   --accent-pink: #ff42c8;
   --accent-green: #5cf1d4;
   --border: #1d2542;
   --glow: #3bffd7;
   --radius: 18px;
-  --font-sans: var(--font-plex-sans), "IBM Plex Sans", "Inter", system-ui,
+  --font-sans: var(--font-space-grotesk), "Space Grotesk", "Inter", system-ui,
     -apple-system, sans-serif;
-  --font-mono: var(--font-plex-mono), "IBM Plex Mono", "SFMono-Regular",
+  --font-mono: var(--font-space-mono), "Space Mono", "SFMono-Regular",
     ui-monospace, monospace;
 }
 
@@ -29,10 +29,10 @@
 body {
   margin: 0;
   color: var(--text-primary);
-  background-color: #f9f9f6;
-  background-image: linear-gradient(#00000008 1px, transparent 1px),
-    linear-gradient(90deg, #00000008 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-color: #fbfbf9;
+  background-image: linear-gradient(#0f172a10 1px, transparent 1px),
+    linear-gradient(90deg, #0f172a10 1px, transparent 1px);
+  background-size: 20px 20px;
   background-position: 0 0, 0 0;
   font-family: var(--font-sans);
   min-height: 100vh;
