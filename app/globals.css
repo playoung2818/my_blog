@@ -48,7 +48,7 @@ a {
   position: relative;
   overflow: hidden;
   padding: 48px clamp(20px, 5vw, 64px) 72px;
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -85,6 +85,14 @@ a {
 .stacked {
   position: relative;
   z-index: 1;
+}
+
+.center-shell {
+  max-width: 760px;
+}
+
+.center-shell .nav-chip {
+  margin-bottom: 16px;
 }
 
 .nav-chip {
@@ -303,6 +311,96 @@ a {
   background: linear-gradient(90deg, var(--accent-pink), var(--accent-green));
   margin: 16px 0;
   border-radius: 999px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.site-name {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.intro {
+  margin-bottom: 24px;
+}
+
+.headline.compact {
+  margin-bottom: 10px;
+}
+
+.lede.compact {
+  margin-bottom: 0;
+}
+
+.blog-list {
+  display: grid;
+  gap: 12px;
+}
+
+.blog-year {
+  padding: 14px 0;
+  border-bottom: 1px solid #1c2340;
+}
+
+.blog-year-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin: 0 0 8px;
+}
+
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.post-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.post-title-link,
+.post-title {
+  font-weight: 600;
+}
+
+.post-title-link {
+  color: var(--text-primary);
+}
+
+.pill {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #0f1426;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.muted.small {
+  font-size: 13px;
 }
 
 .footer {

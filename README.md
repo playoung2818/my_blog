@@ -35,13 +35,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-
-
-✔ Step 1: Write blog in Next.js (best.js or page.tsx). <br/>
-✔ Step 2: Convert to static site (out/) with npm run build. <br/>
-✔ Step 3: Upload out/ folder to IPFS (Pinata, Fleek, etc.). <br/>
-✔ Step 4: Link ENS (Zheyuan.eth) to IPFS CID.
-
-
-ssh zheyuanchen@10.0.0.119
-
+## Deployment reminder (Vercel + Cloudflare)
+- Source: GitHub → Vercel project auto-builds on push (Node 20, Next.js `npm run build`).
+- DNS: Namecheap → Cloudflare nameservers. In Cloudflare DNS: `A @ 216.198.79.1` (gray-cloud, add second A if Vercel shows one) and `CNAME www cname.vercel-dns.com` (gray-cloud). Keep MX/TXT for email.
+- Verify: Vercel Project → Domains → `zyuan.org` → Refresh until “Valid.” Keep proxy off while verifying.
