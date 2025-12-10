@@ -72,16 +72,46 @@ export default function Home() {
 
       <div className="intro">
         <div className="nav-chip">
-          <span className="dot" />
+          <span className="dot pulse" />
           Blog index
         </div>
         <h1 className="headline compact">
           Notes on data, markets, and intelligent systems.
         </h1>
-        <p className="lede compact">
-          Ops-focused analyst with a fintech &amp; Web3 bias. I write when I have something
-          useful to ship or test.
-        </p>
+        <div className="intro-block">
+          <p>
+            Hi, I’m Zheyuan Chen. I grew up in{" "}
+            <a className="inline-link" href="/childhood">
+              Shanghai
+            </a>
+            , and now live in Chicago.
+          </p>
+          <p>
+            At work, I focus on{" "}
+            <a
+              className="inline-link"
+              href="https://github.com/playoung2818/ERP_System"
+              target="_blank"
+              rel="noreferrer"
+            >
+              automating tedious workflows
+            </a>{" "}
+            to make life easier. On weekends, you’ll usually find me{" "}
+            <a
+              className="inline-link"
+              href="https://www.instagram.com/playoung2818?igsh=bHlwOWt5ZjN6d2xq&utm_source=qr"
+              target="_blank"
+              rel="noreferrer"
+            >
+              biking or reading to recharge
+            </a>
+            .
+          </p>
+          <p>
+            I’m open to collaborating on any project — as long as it’s legal. You can reach me
+            at <a className="inline-link" href="mailto:zyuanche@gmail.com">zyuanche@gmail.com</a>.
+          </p>
+        </div>
       </div>
 
       <div className="section-header">Writing</div>

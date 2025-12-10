@@ -117,6 +117,22 @@ a {
   box-shadow: 0 0 12px #5cf1d4aa;
 }
 
+.nav-chip .dot.pulse {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 #5cf1d466, 0 0 8px #5cf1d4aa;
+  }
+  70% {
+    box-shadow: 0 0 0 10px #5cf1d400, 0 0 12px #5cf1d480;
+  }
+  100% {
+    box-shadow: 0 0 0 0 #5cf1d400, 0 0 6px #5cf1d400;
+  }
+}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -344,6 +360,25 @@ a {
 
 .lede.compact {
   margin-bottom: 0;
+}
+
+.intro-block {
+  display: grid;
+  gap: 10px;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.inline-link {
+  color: #0f172a;
+  border-bottom: 1px solid #0f172a33;
+  padding-bottom: 1px;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.inline-link:hover {
+  color: #111827;
+  border-color: #0f172a88;
 }
 
 .blog-list {
