@@ -74,6 +74,9 @@ export default function Home() {
       </header>
 
       <div className="intro">
+        <div className="avatar">
+          <img src="/images/0ffa3cf4c920ed5d2b73de7641948260.jpeg" alt="Zheyuan Chen" />
+        </div>
         <div className="intro-block">
           <p>
             Hi, I’m Zheyuan Chen. I grew up in{" "}
