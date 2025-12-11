@@ -53,6 +53,9 @@ const years = Array.from(new Set(posts.map((post) => post.year))).sort(
 export default function Home() {
   return (
     <div className="page-shell center-shell">
+      <div className="cover-block" aria-hidden="true">
+        <img src="/images/cover.jpg" alt="" className="cover-img" />
+      </div>
       <header className="header-nav">
         <span className="site-name">◯ Zheyuan (James) Chen</span>
         <div className="nav-links">
@@ -71,13 +74,6 @@ export default function Home() {
       </header>
 
       <div className="intro">
-        <div className="nav-chip">
-          <span className="dot pulse" />
-          Blog index
-        </div>
-        <h1 className="headline compact">
-          Notes on data, markets, and intelligent systems.
-        </h1>
         <div className="intro-block">
           <p>
             Hi, I’m Zheyuan Chen. I grew up in{" "}
