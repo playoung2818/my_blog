@@ -29,7 +29,7 @@ const posts: Post[] = [
     title: "Bizarro Capital",
     year: 2023,
     blurb: "RL case study and notes (Bizarro Capital).",
-    url: "/RL_Bizarro.docx",
+    url: "/bizarro",
     status: "live",
   },
   {
@@ -37,7 +37,7 @@ const posts: Post[] = [
     year: 2022,
     blurb:
       "Analyzes how policy combinations influence innovation outcomes in Yangtze River Delta high-tech firms.",
-    url: "/Thesis.docx",
+    url: "/policy-pathways",
     status: "live",
   },
 ];

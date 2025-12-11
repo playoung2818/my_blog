@@ -398,6 +398,23 @@ a {
   border-color: #0f172a88;
 }
 
+.doc-page {
+  display: grid;
+  gap: 16px;
+}
+
+.doc-content {
+  display: grid;
+  gap: 10px;
+  padding: 12px 0 20px;
+  color: var(--text-primary);
+}
+
+.doc-paragraph {
+  margin: 0;
+  line-height: 1.6;
+}
+
 .blog-list {
   display: grid;
   gap: 12px;
