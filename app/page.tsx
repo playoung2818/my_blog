@@ -9,40 +9,36 @@ type Post = {
 
 const posts: Post[] = [
   {
-    title: "Inventory intelligence: 5s SKU lookup",
+    title: "ERP System",
     year: 2025,
     blurb:
-      "Flask + Postgres tool that cut inventory lookups from 30 minutes to 5 seconds for ops and sales.",
-    status: "draft",
-  },
-  {
-    title: "Liquidity risk notes",
-    year: 2025,
-    blurb:
-      "LP risk surfaces and the relationship between ETH and U.S. Treasuries; models and dashboards.",
-    status: "draft",
-  },
-  {
-    title: "DeFi dashboards on Dune",
-    year: 2024,
-    blurb: "A living set of Web3 dashboards and SQL snippets I keep iterating on.",
-    url: "https://dune.com/james0227",
+      "Inventory-driven ERP automating lead times, availability, and work-order allocation with real-time data.",
+    url: "https://github.com/playoung2818/ERP_System",
     external: true,
     status: "live",
   },
   {
-    title: "Prescriptive scheduling experiments",
+    title: "Inventory intelligence: 5s SKU lookup",
     year: 2024,
-    blurb:
-      "ML + optimization to suggest better production schedules while keeping constraints explainable.",
-    status: "draft",
+    blurb: "Flask + Postgres tool that cut inventory lookups from 30 minutes to 5 seconds for ops and sales.",
+    url: "https://github.com/playoung2818/Lookup-Part-Name-by-Serial-Number",
+    external: true,
+    status: "live",
   },
   {
-    title: "Insightful interfaces",
+    title: "Bizarro Capital",
     year: 2023,
+    blurb: "RL case study and notes (Bizarro Capital).",
+    url: "/RL_Bizarro.docx",
+    status: "live",
+  },
+  {
+    title: "Policy Pathways Driving Innovation in High-Tech Enterprises",
+    year: 2022,
     blurb:
-      "Interface sketches for fast, intentional control panels inspired by grid-based layouts and mono type.",
-    status: "draft",
+      "Analyzes how policy combinations influence innovation outcomes in Yangtze River Delta high-tech firms.",
+    url: "/Thesis.docx",
+    status: "live",
   },
 ];
 
@@ -149,7 +145,7 @@ export default function Home() {
 
       <div className="gradient-bar" />
       <div className="footer">
-        <span>Still building and documenting. Reach out: chen0227 [at] gmail.com</span>
+        <span />
       </div>
     </div>
   );
