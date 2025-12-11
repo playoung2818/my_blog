@@ -54,7 +54,11 @@ export default function Home() {
   return (
     <div className="page-shell center-shell">
       <div className="cover-block" aria-hidden="true">
-        <img src="/images/cover.jpg" alt="" className="cover-img" />
+        <img
+          src="/images/94509042-5F9A-4978-9E7B-B78558A3A655_1_105_c.jpeg"
+          alt=""
+          className="cover-img"
+        />
       </div>
       <header className="header-nav">
         <span className="site-name">◯ Zheyuan (James) Chen</span>
