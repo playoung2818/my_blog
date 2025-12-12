@@ -96,9 +96,9 @@ a {
 }
 
 .cover-block {
-  width: calc(100% + 80px);
-  margin: 0 -40px 28px;
-  border-radius: 0;
+  position: relative;
+  width: 100vw;
+  margin: 0 calc(-50vw + 50%) 24px;
   overflow: hidden;
   box-shadow: 0 20px 50px #0f172a1a;
 }
@@ -106,7 +106,7 @@ a {
 .cover-img {
   display: block;
   width: 100%;
-  height: 420px;
+  height: 300px;
   object-fit: cover;
 }
 
