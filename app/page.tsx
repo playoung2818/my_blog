@@ -4,7 +4,7 @@ type Post = {
   blurb: string;
   url?: string;
   external?: boolean;
-  status?: "draft" | "live";
+  status?: "draft" | "open";
 };
 
 const posts: Post[] = [
@@ -15,7 +15,7 @@ const posts: Post[] = [
       "Inventory-driven ERP automating lead times, availability, and work-order allocation with real-time data.",
     url: "https://github.com/playoung2818/ERP_System",
     external: true,
-    status: "live",
+    status: "open",
   },
   {
     title: "Inventory intelligence: 5s SKU lookup",
@@ -23,14 +23,14 @@ const posts: Post[] = [
     blurb: "Flask + Postgres tool that cut inventory lookups from 30 minutes to 5 seconds for ops and sales.",
     url: "https://github.com/playoung2818/Lookup-Part-Name-by-Serial-Number",
     external: true,
-    status: "live",
+    status: "open",
   },
   {
     title: "Bizarro Capital",
     year: 2023,
     blurb: "RL case study and notes (Bizarro Capital).",
     url: "/bizarro",
-    status: "live",
+    status: "open",
   },
   {
     title: "Policy Pathways Driving Innovation in High-Tech Enterprises",
@@ -38,13 +38,20 @@ const posts: Post[] = [
     blurb:
       "Analyzes how policy combinations influence innovation outcomes in Yangtze River Delta high-tech firms.",
     url: "/policy-pathways",
-    status: "live",
+    status: "open",
   },
 ];
 
 const years = Array.from(new Set(posts.map((post) => post.year))).sort(
   (a, b) => b - a,
 );
+
+const before2022 = {
+  title: "Before 2022",
+  blurb: "Older work, notes, and studies collected in one place.",
+  url: "/before-2022",
+  status: "open" as const,
+};
 
 export default function Home() {
   return (
@@ -57,7 +64,7 @@ export default function Home() {
         />
       </div>
       <header className="header-nav">
-        <span className="site-name">◯ Zheyuan (James) Chen</span>
+        <span className="site-name">◯ Howdy!</span>
         <div className="nav-links">
           <a href="https://www.linkedin.com/in/chen0227" target="_blank" rel="noreferrer">
             about
@@ -138,13 +145,41 @@ export default function Home() {
                       )}
                       <p className="muted small">{post.blurb}</p>
                     </div>
-                    {post.status && <span className="pill">{post.status}</span>}
+                    {post.status === "open" && post.url ? (
+                      <a
+                        className="pill pill-link"
+                        href={post.url}
+                        target={post.external ? "_blank" : undefined}
+                        rel={post.external ? "noreferrer" : undefined}
+                      >
+                        OPEN
+                      </a>
+                    ) : post.status ? (
+                      <span className="pill">{post.status}</span>
+                    ) : null}
                   </li>
                 ))}
             </ul>
           </section>
         ))}
       </div>
+
+      <section className="blog-year">
+        <h2 className="blog-year-title">{before2022.title}</h2>
+        <ul className="post-list">
+          <li className="post-row">
+            <div>
+              <a className="post-title-link" href={before2022.url}>
+                {before2022.title}
+              </a>
+              <p className="muted small">{before2022.blurb}</p>
+            </div>
+            <a className="pill pill-link" href={before2022.url}>
+              OPEN
+            </a>
+          </li>
+        </ul>
+      </section>
 
       <div className="gradient-bar" />
       <div className="footer">
