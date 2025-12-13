@@ -97,8 +97,9 @@ a {
 
 .cover-block {
   position: relative;
-  width: 100vw;
-  margin: 0 calc(-50vw + 50%) 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 24px;
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 20px 50px #0f172a1a;
