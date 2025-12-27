@@ -13,16 +13,17 @@ export default function StLouisPage() {
             I graduated from WashU in 2023 with a major in Business Analytics and a focus on
             fintech. During that year and a half, I learned how to break business operations into
             clear questions and apply the right tools to answer them efficiently. I also served as
-            a teaching assistant for the Big Data &amp; Cloud Computing class, with{" "}
+            a teaching assistant for the Big Data &amp; Cloud Computing class.
+          </p>
+          <p className="doc-paragraph">
             <a
               className="inline-link"
               href="/st-louis/big%20data%20final%20v4.ipynb"
               target="_blank"
               rel="noreferrer"
             >
-              this final notebook
-            </a>{" "}
-            as a reference.
+              Big Data final notebook v4
+            </a>
           </p>
           <p className="doc-paragraph">
             I led a team in the Venture Capital Practicum, where we spent a semester tackling real
