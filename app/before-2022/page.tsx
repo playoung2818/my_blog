@@ -7,6 +7,9 @@ export default function Before2022Page() {
   return (
     <div className="page-shell center-shell">
       <div className="doc-page">
+        <div className="cover-block" aria-hidden="true">
+          <img src="/before-2022/IMG_1632.png" alt="" className="cover-img" />
+        </div>
         <h1 className="headline compact">Before 2022</h1>
         <div className="doc-content">
           <p className="doc-paragraph">
