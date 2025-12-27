@@ -7,10 +7,10 @@ export default function StLouisPage() {
   return (
     <div className="page-shell center-shell">
       <div className="doc-page">
-        <h1 className="headline compact">St. Louis</h1>
-        <div className="avatar">
-          <img src="/st-louis/IMG_1005.jpg" alt="St. Louis" />
+        <div className="cover-block" aria-hidden="true">
+          <img src="/st-louis/IMG_1005.jpg" alt="" className="cover-img" />
         </div>
+        <h1 className="headline compact">St. Louis</h1>
         <div className="doc-content">
           <p className="doc-paragraph">
             I graduated from WashU in 2023 with a major in Business Analytics and a focus on
