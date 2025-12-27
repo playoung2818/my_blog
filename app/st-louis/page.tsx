@@ -8,6 +8,9 @@ export default function StLouisPage() {
     <div className="page-shell center-shell">
       <div className="doc-page">
         <h1 className="headline compact">St. Louis</h1>
+        <div className="avatar">
+          <img src="/st-louis/IMG_1005.jpg" alt="St. Louis" />
+        </div>
         <div className="doc-content">
           <p className="doc-paragraph">
             I graduated from WashU in 2023 with a major in Business Analytics and a focus on
