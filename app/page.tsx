@@ -90,6 +90,10 @@ export default function Home() {
             <a className="inline-link" href="/childhood">
               Shanghai
             </a>
+            , completed my studies in{" "}
+            <a className="inline-link" href="/st-louis">
+              St. Louis
+            </a>
             , and now live in Chicago.
           </p>
           <p>
