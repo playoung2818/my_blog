@@ -10,7 +10,12 @@ export default function Before2022Page() {
         <h1 className="headline compact">Before 2022</h1>
         <div className="doc-content">
           <p className="doc-paragraph">
-            Archives of earlier work, notes, and experiments. More structured write-ups coming soon.
+            I grew up in Shanghai and majored in Economics at Shanghai Lixin University of Accounting
+            and Finance. It was a bit of a whirlwind: I had great times with close friends, but the
+            pandemic pulled everyone apart and the academic journey felt disjointed. Still, I
+            completed a thesis I’m proud of on how government policies influence companies’ ability
+            to innovate. The project took almost two years of data collection and analysis, and it
+            taught me the basics of academic research, which was surprisingly fun and rewarding.
           </p>
         </div>
       </div>
