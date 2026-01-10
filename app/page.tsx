@@ -12,15 +12,15 @@ const posts: Post[] = [
     title: "ERP System",
     year: 2025,
     blurb:
-      "Inventory-driven ERP automating lead times, availability, and work-order allocation with real-time data.",
+      "TL;DR: An MRP system that automatically prioritizes sales orders, reallocates inventory, and calculates what to buy—so you keep service levels high without bloating inventory.",
     url: "https://github.com/playoung2818/ERP_System",
     external: true,
     status: "open",
   },
   {
-    title: "Inventory intelligence: 5s SKU lookup",
+    title: "Serial Number Lookup Tool",
     year: 2024,
-    blurb: "Flask + Postgres tool that cut inventory lookups from 30 minutes to 5 seconds for ops and sales.",
+    blurb: "Flask + Postgres tool that return serial number information, and used record",
     url: "https://github.com/playoung2818/Lookup-Part-Name-by-Serial-Number",
     external: true,
     status: "open",
