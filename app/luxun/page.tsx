@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 
 type ChatTurn = {
@@ -68,7 +69,7 @@ export default function LuxunPage() {
       <header className="header-nav">
         <span className="site-name">鲁迅语气对话</span>
         <div className="nav-links">
-          <a href="/">home</a>
+          <Link href="/">home</Link>
         </div>
       </header>
 
@@ -116,4 +117,3 @@ export default function LuxunPage() {
     </div>
   );
 }
-
