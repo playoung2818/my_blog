@@ -30,7 +30,7 @@ export default function LuxunPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/.netlify/functions/luxun-chat", {
+      const res = await fetch("/api/luxun-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
