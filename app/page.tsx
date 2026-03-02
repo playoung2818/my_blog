@@ -9,6 +9,14 @@ type Post = {
 
 const posts: Post[] = [
   {
+    title: "鲁迅风格对话（RAG Chat）",
+    year: 2026,
+    blurb:
+      "A Netlify Function based chatbox that answers in a Lu Xun-inspired tone using retrieved text chunks.",
+    url: "/luxun",
+    status: "open",
+  },
+  {
     title: "ERP System",
     year: 2025,
     blurb:
@@ -66,7 +74,7 @@ export default function Home() {
       <header className="header-nav">
         <span className="site-name">◯ Howdy!</span>
         <div className="nav-links">
-          <a href="https://www.linkedin.com/in/chen0227" target="_blank" rel="noreferrer">
+          <a href="#about">
             about
           </a>
           <span>∘</span>
@@ -80,109 +88,111 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="intro">
-        <div className="avatar">
-          <img src="/images/0ffa3cf4c920ed5d2b73de7641948260.jpeg" alt="Zheyuan Chen" />
+      <section id="about">
+        <div className="section-header">About</div>
+        <div className="intro">
+          <div className="avatar">
+            <img src="/images/0ffa3cf4c920ed5d2b73de7641948260.jpeg" alt="Zheyuan Chen" />
+          </div>
+          <div className="intro-block">
+            <p>
+              Hi, I’m Zheyuan Chen. I grew up in{" "}
+              <a className="inline-link" href="/childhood">
+                Shanghai
+              </a>
+              , completed my studies in{" "}
+              <a className="inline-link" href="/st-louis">
+                St. Louis
+              </a>
+              , and now live in Chicago.
+            </p>
+            <p>
+              At work, I focus on{" "}
+              <a
+                className="inline-link"
+                href="https://github.com/playoung2818/ERP_System"
+                target="_blank"
+                rel="noreferrer"
+              >
+                automating tedious workflows
+              </a>{" "}
+              to make life easier. On weekends, you’ll usually find me{" "}
+              <a
+                className="inline-link"
+                href="https://www.instagram.com/playoung2818?igsh=bHlwOWt5ZjN6d2xq&utm_source=qr"
+                target="_blank"
+                rel="noreferrer"
+              >
+                biking or reading to recharge
+              </a>
+              .
+            </p>
+            <p>
+              I’m open to collaborating on any project — as long as it’s legal. You can reach me
+              at <a className="inline-link" href="mailto:zyuanche@gmail.com">zyuanche@gmail.com</a>.
+            </p>
+          </div>
         </div>
-        <div className="intro-block">
-          <p>
-            Hi, I’m Zheyuan Chen. I grew up in{" "}
-            <a className="inline-link" href="/childhood">
-              Shanghai
-            </a>
-            , completed my studies in{" "}
-            <a className="inline-link" href="/st-louis">
-              St. Louis
-            </a>
-            , and now live in Chicago.
-          </p>
-          <p>
-            At work, I focus on{" "}
-            <a
-              className="inline-link"
-              href="https://github.com/playoung2818/ERP_System"
-              target="_blank"
-              rel="noreferrer"
-            >
-              automating tedious workflows
-            </a>{" "}
-            to make life easier. On weekends, you’ll usually find me{" "}
-            <a
-              className="inline-link"
-              href="https://www.instagram.com/playoung2818?igsh=bHlwOWt5ZjN6d2xq&utm_source=qr"
-              target="_blank"
-              rel="noreferrer"
-            >
-              biking or reading to recharge
-            </a>
-            .
-          </p>
-          <p>
-            I’m open to collaborating on any project — as long as it’s legal. You can reach me
-            at <a className="inline-link" href="mailto:zyuanche@gmail.com">zyuanche@gmail.com</a>.
-          </p>
-        </div>
-      </div>
-
-      <div className="section-header">Writing</div>
-      <div className="blog-list">
-        {years.map((year) => (
-          <section key={year} className="blog-year">
-            <h2 className="blog-year-title">{year}</h2>
-            <ul className="post-list">
-              {posts
-                .filter((post) => post.year === year)
-                .map((post) => (
-                  <li key={post.title} className="post-row">
-                    <div>
-                      {post.url ? (
+        <div className="section-header">Writing Timeline</div>
+        <div className="blog-list">
+          {years.map((year) => (
+            <section key={year} className="blog-year">
+              <h2 className="blog-year-title">{year}</h2>
+              <ul className="post-list">
+                {posts
+                  .filter((post) => post.year === year)
+                  .map((post) => (
+                    <li key={post.title} className="post-row">
+                      <div>
+                        {post.url ? (
+                          <a
+                            className="post-title-link"
+                            href={post.url}
+                            target={post.external ? "_blank" : undefined}
+                            rel={post.external ? "noreferrer" : undefined}
+                          >
+                            {post.title}
+                          </a>
+                        ) : (
+                          <span className="post-title">{post.title}</span>
+                        )}
+                        <p className="muted small">{post.blurb}</p>
+                      </div>
+                      {post.status === "open" && post.url ? (
                         <a
-                          className="post-title-link"
+                          className="pill pill-link"
                           href={post.url}
                           target={post.external ? "_blank" : undefined}
                           rel={post.external ? "noreferrer" : undefined}
                         >
-                          {post.title}
+                          OPEN
                         </a>
-                      ) : (
-                        <span className="post-title">{post.title}</span>
-                      )}
-                      <p className="muted small">{post.blurb}</p>
-                    </div>
-                    {post.status === "open" && post.url ? (
-                      <a
-                        className="pill pill-link"
-                        href={post.url}
-                        target={post.external ? "_blank" : undefined}
-                        rel={post.external ? "noreferrer" : undefined}
-                      >
-                        OPEN
-                      </a>
-                    ) : post.status ? (
-                      <span className="pill">{post.status}</span>
-                    ) : null}
-                  </li>
-                ))}
-            </ul>
-          </section>
-        ))}
-      </div>
+                      ) : post.status ? (
+                        <span className="pill">{post.status}</span>
+                      ) : null}
+                    </li>
+                  ))}
+              </ul>
+            </section>
+          ))}
+        </div>
 
-      <section className="blog-year">
-        <h2 className="blog-year-title">{before2022.title}</h2>
-        <ul className="post-list">
-          <li className="post-row">
-            <div>
-              <a className="post-title-link" href={before2022.url}>
-                {before2022.title}
+        <section className="blog-year">
+          <h2 className="blog-year-title">{before2022.title}</h2>
+          <ul className="post-list">
+            <li className="post-row">
+              <div>
+                <a className="post-title-link" href={before2022.url}>
+                  {before2022.title}
+                </a>
+                <p className="muted small">{before2022.blurb}</p>
+              </div>
+              <a className="pill pill-link" href={before2022.url}>
+                OPEN
               </a>
-              <p className="muted small">{before2022.blurb}</p>
-            </div>
-            <a className="pill pill-link" href={before2022.url}>
-              OPEN
-            </a>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </section>
       </section>
 
       <div className="gradient-bar" />

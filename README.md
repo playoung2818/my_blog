@@ -39,3 +39,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - Source: GitHub → Vercel project auto-builds on push (Node 20, Next.js `npm run build`).
 - DNS: Namecheap → Cloudflare nameservers. In Cloudflare DNS: `A @ 216.198.79.1` (gray-cloud, add second A if Vercel shows one) and `CNAME www cname.vercel-dns.com` (gray-cloud). Keep MX/TXT for email.
 - Verify: Vercel Project → Domains → `zyuan.org` → Refresh until “Valid.” Keep proxy off while verifying.
+
+## Netlify chat function (鲁迅风格对话)
+This repo now includes:
+- page: `/luxun`
+- serverless function: `/.netlify/functions/luxun-chat`
+- corpus file: `data/luxun_chunks.json`
+
+### Netlify settings
+1. Build command: `npm run build`
+2. Publish directory: `.next` (for Next.js on Netlify)
+3. Environment variables:
+- `OPENAI_API_KEY` (required for real LLM response)
+- `OPENAI_MODEL` (optional, default `gpt-4o-mini`)
+
+If `OPENAI_API_KEY` is not set, function falls back to a local style response using retrieved corpus chunks.
