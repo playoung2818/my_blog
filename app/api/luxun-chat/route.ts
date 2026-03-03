@@ -140,3 +140,32 @@ export async function POST(req: Request) {
   }
 }
 
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const message = String(url.searchParams.get("message") || "").trim();
+    if (!message) {
+      return Response.json({
+        ok: true,
+        hint: "POST JSON { message, history } or GET /api/luxun-chat?message=...",
+      });
+    }
+
+    const corpus = loadCorpus();
+    const topChunks = retrieveTopK(message, corpus, 4);
+    const citations = topChunks.map((c) => ({
+      title: c.title || "未命名",
+      source: c.source || "未知",
+    }));
+
+    let answer = await openaiAnswer(message, [], topChunks);
+    if (!answer) {
+      answer = fallbackAnswer(message, topChunks);
+    }
+
+    return Response.json({ answer, citations });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Internal error";
+    return new Response(msg, { status: 500 });
+  }
+}
