@@ -25,20 +25,12 @@ export default function LuxunPage() {
   ): Promise<{ answer: string; citations?: Array<{ title: string; source: string }> }> {
     const payload = JSON.stringify({ message: question, history: compactHistory });
 
-    // Static export mode cannot use Next API routes; use Netlify Function directly.
-    let res = await fetch("/.netlify/functions/luxun-chat", {
+    const res = await fetch("/api/luxun-chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: payload,
     });
     if (res.ok) return res.json();
-
-    // Fallback: Netlify function GET
-    if (res.status === 404 || res.status === 405) {
-      const q = encodeURIComponent(question);
-      res = await fetch(`/.netlify/functions/luxun-chat?message=${q}`);
-      if (res.ok) return res.json();
-    }
 
     const txt = await res.text();
     throw new Error(txt || `Request failed: ${res.status}`);
