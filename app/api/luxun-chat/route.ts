@@ -116,6 +116,21 @@ async function openaiAnswer(
   return data?.output_text || null;
 }
 
+async function handleMessage(message: string, history: Array<{ role: string; content: string }>) {
+  const corpus = loadCorpus();
+  const topChunks = retrieveTopK(message, corpus, 4);
+  const citations = topChunks.map((c) => ({
+    title: c.title || "未命名",
+    source: c.source || "未知",
+  }));
+
+  let answer = await openaiAnswer(message, history, topChunks);
+  if (!answer) {
+    answer = fallbackAnswer(message, topChunks);
+  }
+  return { answer, citations };
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -124,19 +139,7 @@ export async function POST(req: Request) {
     if (!message) {
       return new Response("message is required", { status: 400 });
     }
-
-    const corpus = loadCorpus();
-    const topChunks = retrieveTopK(message, corpus, 4);
-    const citations = topChunks.map((c) => ({
-      title: c.title || "未命名",
-      source: c.source || "未知",
-    }));
-
-    let answer = await openaiAnswer(message, history, topChunks);
-    if (!answer) {
-      answer = fallbackAnswer(message, topChunks);
-    }
-
+    const { answer, citations } = await handleMessage(message, history);
     return Response.json({ answer, citations });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Internal error";
@@ -144,3 +147,17 @@ export async function POST(req: Request) {
   }
 }
 
+export async function GET(req: Request) {
+  try {
+    const url = new URL(req.url);
+    const message = String(url.searchParams.get("message") || "").trim();
+    if (!message) {
+      return new Response("message is required", { status: 400 });
+    }
+    const { answer, citations } = await handleMessage(message, []);
+    return Response.json({ answer, citations });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Internal error";
+    return new Response(msg, { status: 500 });
+  }
+}

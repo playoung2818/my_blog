@@ -105,38 +105,50 @@ async function openaiAnswer(message, history, chunks) {
   return data.output_text || "";
 }
 
+async function handleMessage(message, history) {
+  const corpus = loadCorpus();
+  const topChunks = retrieveTopK(message, corpus, 4);
+  const citations = topChunks.map((c) => ({
+    title: c.title || "未命名",
+    source: c.source || "未知",
+  }));
+
+  let answer = null;
+  try {
+    answer = await openaiAnswer(message, history, topChunks);
+  } catch {
+    answer = null;
+  }
+  if (!answer) {
+    answer = fallbackAnswer(message, topChunks);
+  }
+  return { answer, citations };
+}
+
 exports.handler = async function handler(event) {
-  if (event.httpMethod !== "POST") {
+  if (event.httpMethod === "OPTIONS") {
     return {
-      statusCode: 405,
-      body: "Method Not Allowed",
+      statusCode: 200,
+      headers: { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "Content-Type" },
+      body: "",
     };
   }
-
   try {
-    const body = JSON.parse(event.body || "{}");
-    const message = String(body.message || "").trim();
-    const history = Array.isArray(body.history) ? body.history : [];
+    let message = "";
+    let history = [];
+    if (event.httpMethod === "GET") {
+      message = String((event.queryStringParameters && event.queryStringParameters.message) || "").trim();
+    } else {
+      const body = JSON.parse(event.body || "{}");
+      message = String(body.message || "").trim();
+      history = Array.isArray(body.history) ? body.history : [];
+    }
+
     if (!message) {
       return { statusCode: 400, body: "message is required" };
     }
 
-    const corpus = loadCorpus();
-    const topChunks = retrieveTopK(message, corpus, 4);
-    const citations = topChunks.map((c) => ({
-      title: c.title || "未命名",
-      source: c.source || "未知",
-    }));
-
-    let answer = null;
-    try {
-      answer = await openaiAnswer(message, history, topChunks);
-    } catch {
-      answer = null;
-    }
-    if (!answer) {
-      answer = fallbackAnswer(message, topChunks);
-    }
+    const { answer, citations } = await handleMessage(message, history);
 
     return {
       statusCode: 200,
@@ -150,4 +162,3 @@ exports.handler = async function handler(event) {
     };
   }
 };
-

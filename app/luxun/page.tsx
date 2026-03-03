@@ -19,6 +19,41 @@ export default function LuxunPage() {
 
   const canSend = useMemo(() => input.trim().length > 0 && !loading, [input, loading]);
 
+  async function requestChat(
+    question: string,
+    compactHistory: Array<{ role: string; content: string }>
+  ): Promise<{ answer: string; citations?: Array<{ title: string; source: string }> }> {
+    const payload = JSON.stringify({ message: question, history: compactHistory });
+
+    // 1) Preferred: Next API route
+    let res = await fetch("/api/luxun-chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+    });
+    if (res.ok) return res.json();
+
+    // 2) Fallback: Netlify function POST
+    if (res.status === 404 || res.status === 405) {
+      res = await fetch("/.netlify/functions/luxun-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      });
+      if (res.ok) return res.json();
+    }
+
+    // 3) Last fallback: Netlify function GET
+    if (res.status === 404 || res.status === 405) {
+      const q = encodeURIComponent(question);
+      res = await fetch(`/.netlify/functions/luxun-chat?message=${q}`);
+      if (res.ok) return res.json();
+    }
+
+    const txt = await res.text();
+    throw new Error(txt || `Request failed: ${res.status}`);
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!canSend) return;
@@ -30,21 +65,10 @@ export default function LuxunPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/luxun-chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: question,
-          history: nextHistory
-            .slice(-8)
-            .map((x) => ({ role: x.role, content: x.content })),
-        }),
-      });
-      if (!res.ok) {
-        const txt = await res.text();
-        throw new Error(txt || `Request failed: ${res.status}`);
-      }
-      const data = (await res.json()) as {
+      const data = (await requestChat(
+        question,
+        nextHistory.slice(-8).map((x) => ({ role: x.role, content: x.content }))
+      )) as {
         answer: string;
         citations?: Array<{ title: string; source: string }>;
       };
