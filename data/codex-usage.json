@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "codex_home": "/home/zheyuanchen/.codex",
+    "timezone": "America/Chicago",
+    "generated_at": "2026-04-01 19:48:47"
+  },
+  "available_years": [
+    2026
+  ],
+  "years": {
+    "2026": {
+      "summary": {
+        "total_prompts": 237,
+        "total_sessions": 22,
+        "total_commands": 268,
+        "total_active_minutes": 577
+      },
+      "months": [
+        {
+          "label": "January 2026",
+          "prompts": 30,
+          "sessions": 3,
+          "commands": 0,
+          "active_minutes": 60
+        },
+        {
+          "label": "February 2026",
+          "prompts": 205,
+          "sessions": 18,
+          "commands": 237,
+          "active_minutes": 501
+        },
+        {
+          "label": "March 2026",
+          "prompts": 0,
+          "sessions": 0,
+          "commands": 0,
+          "active_minutes": 0
+        },
+        {
+          "label": "April 2026",
+          "prompts": 2,
+          "sessions": 1,
+          "commands": 31,
+          "active_minutes": 16
+        }
+      ],
+      "days": [
+        {
+          "date": "2026-01-26",
+          "prompts": 4,
+          "sessions": 1,
+          "commands": 0,
+          "active_minutes": 12
+        },
+        {
+          "date": "2026-01-27",
+          "prompts": 22,
+          "sessions": 1,
+          "commands": 0,
+          "active_minutes": 24
+        },
+        {
+          "date": "2026-01-28",
+          "prompts": 4,
+          "sessions": 1,
+          "commands": 0,
+          "active_minutes": 24
+        },
+        {
+          "date": "2026-02-01",
+          "prompts": 5,
+          "sessions": 2,
+          "commands": 0,
+          "active_minutes": 30
+        },
+        {
+          "date": "2026-02-02",
+          "prompts": 0,
+          "sessions": 1,
+          "commands": 0,
+          "active_minutes": 16
+        },
+        {
+          "date": "2026-02-03",
+          "prompts": 0,
+          "sessions": 1,
+          "commands": 0,
+          "active_minutes": 15
+        },
+        {
+          "date": "2026-02-04",
+          "prompts": 0,
+          "sessions": 2,
+          "commands": 0,
+          "active_minutes": 27
+        },
+        {
+          "date": "2026-02-06",
+          "prompts": 26,
+          "sessions": 4,
+          "commands": 53,
+          "active_minutes": 63
+        },
+        {
+          "date": "2026-02-07",
+          "prompts": 20,
+          "sessions": 1,
+          "commands": 26,
+          "active_minutes": 48
+        },
+        {
+          "date": "2026-02-08",
+          "prompts": 98,
+          "sessions": 2,
+          "commands": 81,
+          "active_minutes": 181
+        },
+        {
+          "date": "2026-02-09",
+          "prompts": 23,
+          "sessions": 1,
+          "commands": 17,
+          "active_minutes": 42
+        },
+        {
+          "date": "2026-02-10",
+          "prompts": 21,
+          "sessions": 1,
+          "commands": 31,
+          "active_minutes": 42
+        },
+        {
+          "date": "2026-02-11",
+          "prompts": 8,
+          "sessions": 2,
+          "commands": 8,
+          "active_minutes": 32
+        },
+        {
+          "date": "2026-02-13",
+          "prompts": 4,
+          "sessions": 1,
+          "commands": 21,
+          "active_minutes": 5
+        },
+        {
+          "date": "2026-04-01",
+          "prompts": 2,
+          "sessions": 1,
+          "commands": 31,
+          "active_minutes": 16
+        }
+      ]
+    }
+  }
+}
