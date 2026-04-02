@@ -46,15 +46,16 @@ const DASHBOARD_STYLES = `
 
 .codex-grid {
   display: grid;
-  gap: 18px;
-  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+  gap: 22px;
+  grid-template-columns: minmax(0, 1.7fr) minmax(300px, 0.9fr);
+  align-items: start;
 }
 
 .codex-panel {
   background: rgba(255, 255, 255, 0.88);
   border: 1px solid rgba(15, 23, 42, 0.08);
   border-radius: 24px;
-  padding: 22px;
+  padding: 26px;
   box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
 }
 
@@ -72,31 +73,37 @@ const DASHBOARD_STYLES = `
 
 .codex-summary {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
 }
 
 .codex-stat {
-  padding: 16px;
-  border-radius: 18px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-height: 160px;
+  padding: 18px 16px;
+  border-radius: 20px;
   background: linear-gradient(180deg, #f8fafc, #eef2ff);
   border: 1px solid rgba(148, 163, 184, 0.22);
 }
 
 .codex-stat-label {
   display: block;
-  margin-bottom: 8px;
   color: #64748b;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  line-height: 1.45;
   text-transform: uppercase;
 }
 
 .codex-stat-value {
-  font-size: clamp(24px, 3vw, 36px);
+  font-size: clamp(28px, 3vw, 42px);
   font-weight: 700;
   letter-spacing: -0.05em;
+  line-height: 0.95;
+  overflow-wrap: anywhere;
 }
 
 .codex-heatmap-wrap {
@@ -204,8 +211,9 @@ const DASHBOARD_STYLES = `
 .codex-list-item {
   display: flex;
   justify-content: space-between;
+  align-items: start;
   gap: 12px;
-  padding-top: 12px;
+  padding-top: 16px;
   border-top: 1px solid rgba(148, 163, 184, 0.24);
 }
 
@@ -221,16 +229,20 @@ const DASHBOARD_STYLES = `
 
 .codex-list-title {
   font-weight: 600;
+  font-size: 15px;
 }
 
 .codex-list-subtitle {
   color: #64748b;
   font-size: 13px;
+  line-height: 1.5;
 }
 
 .codex-list-value {
   font-weight: 700;
   white-space: nowrap;
+  font-size: 15px;
+  text-align: right;
 }
 
 .codex-note {
@@ -245,6 +257,16 @@ const DASHBOARD_STYLES = `
   }
 }
 
+@media (max-width: 820px) {
+  .codex-panel {
+    padding: 22px;
+  }
+
+  .codex-stat {
+    min-height: 0;
+  }
+}
+
 @media (max-width: 720px) {
   .codex-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -254,6 +276,16 @@ const DASHBOARD_STYLES = `
 @media (max-width: 560px) {
   .codex-summary {
     grid-template-columns: 1fr;
+  }
+
+  .codex-list-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .codex-list-value {
+    text-align: left;
   }
 
   .codex-panel {

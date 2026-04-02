@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function CodexPage() {
   return (
-    <div className="page-shell center-shell stacked">
+    <div className="page-shell stacked">
       <header className="header-nav">
         <span className="site-name">Codex Usage</span>
         <div className="nav-links">
