@@ -1,3 +1,5 @@
+import fs from "fs";
+
 type CodexUsageResponse = {
   plan_type?: string;
   rate_limit?: {
@@ -83,15 +85,16 @@ const CHATGPT_USAGE_PATH = "/wham/usage";
 const CODEX_USAGE_PATH = "/api/codex/usage";
 
 export function loadCodexOAuthConfig(env: NodeJS.ProcessEnv = process.env): CodexOAuthConfig {
-  const accessToken = env.CODEX_OAUTH_ACCESS_TOKEN?.trim();
+  const authFile = loadCodexAuthFile(env);
+  const accessToken = env.CODEX_OAUTH_ACCESS_TOKEN?.trim() || authFile?.accessToken;
   if (!accessToken) {
     throw new CodexOAuthConfigError(
-      "Missing CODEX_OAUTH_ACCESS_TOKEN. Set a ChatGPT/Codex OAuth access token on the server."
+      "Missing Codex OAuth credentials. Run `codex login` first or set CODEX_OAUTH_ACCESS_TOKEN."
     );
   }
 
-  const accountId = emptyToNull(env.CODEX_OAUTH_ACCOUNT_ID);
-  const idToken = emptyToNull(env.CODEX_OAUTH_ID_TOKEN);
+  const accountId = emptyToNull(env.CODEX_OAUTH_ACCOUNT_ID) ?? authFile?.accountId ?? null;
+  const idToken = emptyToNull(env.CODEX_OAUTH_ID_TOKEN) ?? authFile?.idToken ?? null;
   const baseURL = normalizeChatGPTBaseURL(emptyToNull(env.CODEX_CHATGPT_BASE_URL) ?? DEFAULT_BASE_URL);
   const path = baseURL.includes("/backend-api") ? CHATGPT_USAGE_PATH : CODEX_USAGE_PATH;
   const endpoint = new URL(`${baseURL}${path}`);
@@ -246,4 +249,27 @@ function parseJwtPayload(token: string): Record<string, unknown> | null {
 
 function asNonEmptyString(value: unknown): string | null {
   return typeof value === "string" && value.trim() ? value.trim() : null;
+}
+
+function loadCodexAuthFile(env: NodeJS.ProcessEnv) {
+  const codexHome = emptyToNull(env.CODEX_HOME) ?? `${process.env.HOME ?? ""}/.codex`;
+  const authPath = `${codexHome}/auth.json`;
+
+  try {
+    const raw = fs.readFileSync(authPath, "utf8");
+    const parsed = JSON.parse(raw) as {
+      tokens?: {
+        access_token?: string;
+        id_token?: string;
+        account_id?: string;
+      };
+    };
+    return {
+      accessToken: emptyToNull(parsed.tokens?.access_token),
+      idToken: emptyToNull(parsed.tokens?.id_token),
+      accountId: emptyToNull(parsed.tokens?.account_id),
+    };
+  } catch {
+    return null;
+  }
 }

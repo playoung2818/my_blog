@@ -58,6 +58,8 @@ If `OPENAI_API_KEY` is not set, function falls back to a local style response us
 ## Codex OAuth usage adapter
 This repo now includes:
 - route: `/api/codex-usage`
+- static snapshot file: `data/codex-usage-remote.json`
+- snapshot generator: `npm run update:codex-usage`
 
 ### Required server environment variables
 - `CODEX_OAUTH_ACCESS_TOKEN`
@@ -71,3 +73,4 @@ This repo now includes:
 - The route runs server-side only and forwards the OAuth bearer token to the ChatGPT/Codex usage endpoint.
 - It follows the CodexBar endpoint pattern and returns both a normalized usage payload and the raw upstream response.
 - `CODEX_OAUTH_ID_TOKEN` is only used to derive the signed-in email for display/debugging.
+- For this static blog, the practical workflow is to run `npm run update:codex-usage` before deploy and commit the refreshed JSON snapshot.
