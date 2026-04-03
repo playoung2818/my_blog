@@ -45,7 +45,7 @@ const DASHBOARD_STYLES = `
 .codex-grid {
   display: grid;
   gap: 22px;
-  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.9fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
 }
 
@@ -65,7 +65,6 @@ const DASHBOARD_STYLES = `
 .codex-intro,
 .codex-note,
 .codex-kicker,
-.codex-meta-value,
 .codex-window-subtitle,
 .codex-list-subtitle {
   color: var(--text-muted);
@@ -93,70 +92,6 @@ const DASHBOARD_STYLES = `
 .codex-headline {
   display: grid;
   gap: 10px;
-}
-
-.codex-account-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.codex-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 36px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(241, 245, 249, 0.9);
-  border: 1px solid rgba(148, 163, 184, 0.2);
-  font-size: 13px;
-}
-
-.codex-chip strong {
-  color: #0f172a;
-}
-
-.codex-summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 14px;
-  margin-top: 20px;
-}
-
-.codex-stat {
-  display: grid;
-  gap: 12px;
-  align-content: start;
-  min-height: 148px;
-  padding: 18px 16px;
-  border-radius: 20px;
-  background: linear-gradient(180deg, #f8fafc, #eef2ff);
-  border: 1px solid rgba(148, 163, 184, 0.22);
-}
-
-.codex-stat-label {
-  display: block;
-  color: #64748b;
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  line-height: 1.45;
-  text-transform: uppercase;
-}
-
-.codex-stat-value {
-  font-size: clamp(28px, 3vw, 42px);
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 0.95;
-  overflow-wrap: anywhere;
-}
-
-.codex-stat-hint {
-  color: #64748b;
-  font-size: 13px;
-  line-height: 1.5;
 }
 
 .codex-window-grid {
@@ -223,81 +158,7 @@ const DASHBOARD_STYLES = `
 }
 
 .codex-side {
-  display: grid;
-  gap: 18px;
-  align-content: start;
-}
-
-.codex-list {
-  display: grid;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.codex-list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 12px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(148, 163, 184, 0.24);
-}
-
-.codex-list-item:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.codex-list-main {
-  display: grid;
-  gap: 4px;
-}
-
-.codex-list-title {
-  font-weight: 600;
-  font-size: 15px;
-}
-
-.codex-list-subtitle {
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.codex-list-value {
-  font-weight: 700;
-  font-size: 15px;
-  text-align: right;
-}
-
-.codex-meta-grid {
-  display: grid;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.codex-meta-row {
-  display: grid;
-  gap: 4px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(148, 163, 184, 0.24);
-}
-
-.codex-meta-row:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.codex-meta-label {
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #64748b;
-}
-
-.codex-meta-value {
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
+  display: none;
 }
 
 @media (max-width: 980px) {
@@ -310,25 +171,12 @@ const DASHBOARD_STYLES = `
   .codex-panel {
     padding: 22px;
   }
-
-  .codex-stat {
-    min-height: 0;
-  }
 }
 
 @media (max-width: 560px) {
-  .codex-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .codex-list-item,
   .codex-window-header {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .codex-list-value {
-    text-align: left;
   }
 
   .codex-panel {
@@ -361,21 +209,6 @@ function formatTimestamp(value: string | null) {
   }).format(date);
 }
 
-function formatBalance(value: number | null, unlimited: boolean | undefined) {
-  if (unlimited) return "Unlimited";
-  if (typeof value !== "number" || Number.isNaN(value)) return "Unavailable";
-  return new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: value % 1 === 0 ? 0 : 2,
-    maximumFractionDigits: 2,
-  }).format(value);
-}
-
-function formatAccountId(value: string | null) {
-  if (!value) return "Not provided";
-  if (value.length <= 10) return value;
-  return `${value.slice(0, 6)}...${value.slice(-4)}`;
-}
-
 function windowRows(primary: RateWindow | null, secondary: RateWindow | null) {
   return [
     { label: "Primary Window", window: primary },
@@ -383,26 +216,8 @@ function windowRows(primary: RateWindow | null, secondary: RateWindow | null) {
   ].filter((item) => item.window);
 }
 
-function SummaryCard({
-  label,
-  value,
-  hint,
-}: {
-  label: string;
-  value: string;
-  hint: string;
-}) {
-  return (
-    <div className="codex-stat">
-      <span className="codex-stat-label">{label}</span>
-      <div className="codex-stat-value">{value}</div>
-      <div className="codex-stat-hint">{hint}</div>
-    </div>
-  );
-}
-
 export function CodexDashboard() {
-  const { meta, account, usage } = dataset;
+  const { meta, usage } = dataset;
   const windows = windowRows(usage.primary_window, usage.secondary_window);
 
   return (
@@ -411,8 +226,8 @@ export function CodexDashboard() {
       <div className="section-header">Codex Dashboard</div>
       <p className="codex-intro">
         A static snapshot of Codex cloud usage pulled from the ChatGPT/Codex OAuth endpoint during
-        the site build. This page shows the actual remote plan, rate-limit windows, and credits
-        signal the upstream endpoint exposes.
+        the site build. The two cards below are the current Codex usage windows returned by the
+        upstream service.
       </p>
       <p className="codex-note">
         Source: {meta.source}. Snapshot refreshed: {formatTimestamp(meta.fetched_at)}.
@@ -422,53 +237,7 @@ export function CodexDashboard() {
         <div className="codex-panel">
           <div className="codex-headline">
             <p className="codex-kicker">Remote Snapshot</p>
-            <h2>{formatPlan(usage.plan_type)} Plan</h2>
-            <div className="codex-account-row">
-              <span className="codex-chip">
-                Account <strong>{account.email ?? "Unknown"}</strong>
-              </span>
-              <span className="codex-chip">
-                Credits{" "}
-                <strong>{formatBalance(usage.credits?.balance ?? null, usage.credits?.unlimited)}</strong>
-              </span>
-            </div>
-          </div>
-
-          <div className="codex-summary">
-            <SummaryCard
-              label="Primary Used"
-              value={formatPercent(usage.primary_window?.used_percent)}
-              hint={
-                usage.primary_window
-                  ? `Resets ${formatTimestamp(usage.primary_window.reset_at)}`
-                  : "Primary window not returned"
-              }
-            />
-            <SummaryCard
-              label="Secondary Used"
-              value={formatPercent(usage.secondary_window?.used_percent)}
-              hint={
-                usage.secondary_window
-                  ? `Resets ${formatTimestamp(usage.secondary_window.reset_at)}`
-                  : "Secondary window not returned"
-              }
-            />
-            <SummaryCard
-              label="Credits Balance"
-              value={formatBalance(usage.credits?.balance ?? null, usage.credits?.unlimited)}
-              hint={
-                usage.credits?.unlimited
-                  ? "Upstream reports unlimited credits"
-                  : usage.credits?.has_credits
-                    ? "Credit balance returned by upstream"
-                    : "No credit balance reported"
-              }
-            />
-            <SummaryCard
-              label="Account Id"
-              value={formatAccountId(account.account_id)}
-              hint="Useful when you scope usage to a ChatGPT account"
-            />
+            <h2>{formatPlan(usage.plan_type)} Codex Usage Windows</h2>
           </div>
 
           <div className="codex-window-grid">
@@ -507,66 +276,6 @@ export function CodexDashboard() {
             )}
           </div>
         </div>
-
-        <aside className="codex-side">
-          <div className="codex-panel">
-            <h3>Snapshot Details</h3>
-            <div className="codex-list">
-              <div className="codex-list-item">
-                <div className="codex-list-main">
-                  <div className="codex-list-title">Plan</div>
-                  <div className="codex-list-subtitle">Reported by the remote Codex usage API</div>
-                </div>
-                <div className="codex-list-value">{formatPlan(usage.plan_type)}</div>
-              </div>
-              <div className="codex-list-item">
-                <div className="codex-list-main">
-                  <div className="codex-list-title">Signed-in Email</div>
-                  <div className="codex-list-subtitle">
-                    Derived from the optional ID token snapshot
-                  </div>
-                </div>
-                <div className="codex-list-value">{account.email ?? "Unavailable"}</div>
-              </div>
-              <div className="codex-list-item">
-                <div className="codex-list-main">
-                  <div className="codex-list-title">Credits Mode</div>
-                  <div className="codex-list-subtitle">
-                    How the upstream endpoint describes your credit state
-                  </div>
-                </div>
-                <div className="codex-list-value">
-                  {usage.credits?.unlimited
-                    ? "Unlimited"
-                    : usage.credits?.has_credits
-                      ? "Metered"
-                      : "Not reported"}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="codex-panel">
-            <h3>Endpoint Diagnostics</h3>
-            <div className="codex-meta-grid">
-              <div className="codex-meta-row">
-                <div className="codex-meta-label">Endpoint</div>
-                <div className="codex-meta-value">{meta.endpoint}</div>
-              </div>
-              <div className="codex-meta-row">
-                <div className="codex-meta-label">Fetch Timestamp</div>
-                <div className="codex-meta-value">{formatTimestamp(meta.fetched_at)}</div>
-              </div>
-              <div className="codex-meta-row">
-                <div className="codex-meta-label">Design Note</div>
-                <div className="codex-meta-value">
-                  This static page no longer pretends it has local prompt/session history. It only
-                  renders what the remote Codex endpoint actually returns.
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
       </section>
     </section>
   );
