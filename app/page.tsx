@@ -11,10 +11,10 @@ type Post = {
 
 const posts: Post[] = [
   {
-    title: "鲁迅风格对话（RAG Chat）",
+    title: "Zhongshuqian GPT",
     year: 2026,
     blurb:
-      "A Netlify Function based chatbox that answers in a Lu Xun-inspired tone using retrieved text chunks.",
+      "Designed to being able to talk with zhongshu qian, a chinese writer i admired who had passed away.",
     url: "/luxun",
     status: "open",
   },
