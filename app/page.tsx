@@ -1,5 +1,3 @@
-import { CodexDashboard } from "./components/codex-dashboard";
-
 type Post = {
   title: string;
   year: number;
@@ -195,8 +193,6 @@ export default function Home() {
             </li>
           </ul>
         </section>
-
-        <CodexDashboard />
       </section>
 
       <div className="gradient-bar" />
