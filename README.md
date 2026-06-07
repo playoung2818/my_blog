@@ -22,20 +22,20 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Unique visitor counter
 
-The homepage records unique visitor IPs as salted HMAC-SHA256 hashes in an
-Upstash Redis set. Raw IP addresses are not stored. Configure these environment
-variables in Vercel for Production, Preview, and Development:
+The homepage records unique visitor IPs as salted HMAC-SHA256 hashes in a
+Postgres table. Raw IP addresses are not stored. Install a Postgres provider
+such as Neon from the Vercel Marketplace and connect it to this project. The
+integration supplies `DATABASE_URL`; then add the hashing salt:
 
 ```text
-UPSTASH_REDIS_REST_URL=https://...
-UPSTASH_REDIS_REST_TOKEN=...
+DATABASE_URL=postgresql://...
 VISITOR_HASH_SALT=<a-long-random-secret>
 ```
 
-Vercel Marketplace integrations may expose the Redis credentials as
-`KV_REST_API_URL` and `KV_REST_API_TOKEN`; those names are supported as a
-fallback. Changing `VISITOR_HASH_SALT` changes visitor identities and can cause
-returning visitors to be counted again.
+Legacy Vercel Postgres integrations that expose `POSTGRES_URL` are also
+supported. The API creates the `unique_visitors` table automatically. Changing
+`VISITOR_HASH_SALT` changes visitor identities and can cause returning visitors
+to be counted again.
 
 ## Learn More
 
