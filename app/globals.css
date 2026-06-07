@@ -580,6 +580,11 @@ a {
   flex-wrap: wrap;
 }
 
+.visitor-count {
+  color: var(--text-primary);
+  font-family: var(--font-space-mono), monospace;
+}
+
 @media (max-width: 900px) {
   .hero-grid {
     grid-template-columns: 1fr;

@@ -20,6 +20,23 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Unique visitor counter
+
+The homepage records unique visitor IPs as salted HMAC-SHA256 hashes in an
+Upstash Redis set. Raw IP addresses are not stored. Configure these environment
+variables in Vercel for Production, Preview, and Development:
+
+```text
+UPSTASH_REDIS_REST_URL=https://...
+UPSTASH_REDIS_REST_TOKEN=...
+VISITOR_HASH_SALT=<a-long-random-secret>
+```
+
+Vercel Marketplace integrations may expose the Redis credentials as
+`KV_REST_API_URL` and `KV_REST_API_TOKEN`; those names are supported as a
+fallback. Changing `VISITOR_HASH_SALT` changes visitor identities and can cause
+returning visitors to be counted again.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

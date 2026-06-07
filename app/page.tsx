@@ -1,3 +1,5 @@
+import VisitorCount from "./components/VisitorCount";
+
 type Post = {
   title: string;
   year: number;
@@ -197,7 +199,8 @@ export default function Home() {
 
       <div className="gradient-bar" />
       <div className="footer">
-        <span />
+        <VisitorCount />
+        <span>IP addresses are counted anonymously.</span>
       </div>
     </div>
   );
