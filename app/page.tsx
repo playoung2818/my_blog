@@ -99,7 +99,7 @@ export default function Home() {
           <div className="intro-block">
             <p>
               Hi, I’m Zheyuan Chen. I grew up in{" "}
-              <a className="inline-link" href="/childhood">
+              <a className="inline-link" href="/before-2022">
                 Shanghai
               </a>
               , completed my studies in{" "}
