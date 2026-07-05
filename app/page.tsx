@@ -68,7 +68,7 @@ export default function Home() {
     <div className="page-shell center-shell">
       <div className="cover-block" aria-hidden="true">
         <img
-          src="/images/94509042-5F9A-4978-9E7B-B78558A3A655_1_105_c.jpeg"
+          src="/images/Backgroud.jpeg"
           alt=""
           className="cover-img"
         />
@@ -94,7 +94,7 @@ export default function Home() {
         <div className="section-header">About</div>
         <div className="intro">
           <div className="avatar">
-            <img src="/images/0ffa3cf4c920ed5d2b73de7641948260.jpeg" alt="Zheyuan Chen" />
+            <img src="/images/Profile.png" alt="Zheyuan Chen" />
           </div>
           <div className="intro-block">
             <p>
