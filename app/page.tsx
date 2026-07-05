@@ -11,10 +11,10 @@ type Post = {
 
 const posts: Post[] = [
   {
-    title: "Zhongshuqian GPT",
+    title: "Luxun GPT",
     year: 2026,
     blurb:
-      "Designed to being able to talk with zhongshu qian, a chinese writer i admired who had passed away.",
+      "Designed to being able to talk with Luxun, a chinese writer i admire",
     url: "/luxun",
     status: "open",
   },
@@ -200,7 +200,6 @@ export default function Home() {
       <div className="gradient-bar" />
       <div className="footer">
         <VisitorCount />
-        <span>IP addresses are counted anonymously.</span>
       </div>
     </div>
   );
