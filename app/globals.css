@@ -505,6 +505,39 @@ a {
   line-height: 1.6;
 }
 
+.photo-journal {
+  display: grid;
+  gap: 42px;
+  margin-top: 12px;
+}
+
+.photo-entry {
+  margin: 0;
+}
+
+.photo-entry-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 16px 36px #0f172a1a;
+}
+
+.photo-note {
+  min-height: 72px;
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-left: 3px solid #0f172a33;
+  background: #ffffffa6;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.photo-note-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
 .blog-list {
   display: grid;
   gap: 12px;
