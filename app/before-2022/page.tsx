@@ -2,12 +2,12 @@ import Image, { type StaticImageData } from "next/image";
 
 import shanghai01 from "./IMG_1632.png";
 import shanghai02 from "./6f3015efar1cc84003cf6353ca4911c2.jpg";
-import shanghai03 from "./IMG_0219.JPG";
-import shanghai04 from "./IMG_0240.JPG";
-import shanghai05 from "./IMG_0261.JPG";
-import shanghai06 from "./IMG_0433.JPG";
+import shanghai03 from "./IMG_0219.jpg";
+import shanghai04 from "./IMG_0240.jpg";
+import shanghai05 from "./IMG_0261.jpg";
+import shanghai06 from "./IMG_0433.jpg";
 import shanghai07 from "./IMG_1006.jpeg";
-import shanghai08 from "./IMG_1809.JPG";
+import shanghai08 from "./IMG_1809.jpg";
 
 export const metadata = {
   title: "Before 2022 | Zheyuan Chen",
