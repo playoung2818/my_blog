@@ -80,7 +80,7 @@ export default function Home() {
             about
           </a>
           <span>∘</span>
-          <a href="https://github.com/playoung2818" target="_blank" rel="noreferrer">
+          <a href="/code">
             code
           </a>
           <span>∘</span>
