@@ -89,7 +89,7 @@ export default function Home() {
           </a>
         </div>
       </header>
-
+f
       <section id="about">
         <div className="section-header">About</div>
         <div className="intro">
@@ -98,9 +98,9 @@ export default function Home() {
           </div>
           <div className="intro-block">
             <p>
-              Hi, I’m Zheyuan Chen. I grew up in{" "}
+              Hi, I’m ZC. I grew up in{" "}
               <a className="inline-link" href="/before-2022">
-                Shanghai
+                China
               </a>
               , completed my studies in{" "}
               <a className="inline-link" href="/st-louis">
@@ -109,7 +109,7 @@ export default function Home() {
               , and now live in Chicago.
             </p>
             <p>
-              At work, I focus on{" "}
+              At work, I spend lots of time on{" "}
               <a
                 className="inline-link"
                 href="https://github.com/playoung2818/ERP_System"
@@ -118,7 +118,7 @@ export default function Home() {
               >
                 automating tedious workflows
               </a>{" "}
-              to make life easier. On weekends, you’ll usually find me{" "}
+              . On weekends, you’ll usually find me{" "}
               <a
                 className="inline-link"
                 href="https://www.instagram.com/playoung2818?igsh=bHlwOWt5ZjN6d2xq&utm_source=qr"
