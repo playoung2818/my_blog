@@ -1,4 +1,5 @@
 import VisitorCount from "./components/VisitorCount";
+import Fireworks from "./components/Fireworks";
 
 type Post = {
   title: string;
@@ -66,15 +67,20 @@ const before2022 = {
 export default function Home() {
   return (
     <div className="page-shell center-shell">
-      <div className="cover-block" aria-hidden="true">
+      <div className="cover-block drawing-cover" aria-hidden="true">
         <img
-          src="/images/Backgroud.jpeg"
+          src="/images/drawing-figure-1.png"
           alt=""
-          className="cover-img"
+          className="cover-figure"
+        />
+        <img
+          src="/images/drawing-figure-2.png"
+          alt=""
+          className="cover-figure"
         />
       </div>
       <header className="header-nav">
-        <span className="site-name">◯ Howdy!</span>
+        <Fireworks />
         <div className="nav-links">
           <a href="#about">
             about
@@ -89,7 +95,7 @@ export default function Home() {
           </a>
         </div>
       </header>
-f
+
       <section id="about">
         <div className="section-header">About</div>
         <div className="intro">

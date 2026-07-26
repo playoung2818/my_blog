@@ -105,6 +105,20 @@ a {
   box-shadow: 0 20px 50px #0f172a1a;
 }
 
+.drawing-cover {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  background: #fff;
+}
+
+.cover-figure {
+  display: block;
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+}
+
 .cover-img {
   display: block;
   width: 100%;
@@ -428,6 +442,32 @@ a {
 .site-name {
   font-weight: 700;
   letter-spacing: -0.01em;
+}
+
+.fireworks-trigger {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.fireworks-trigger:hover {
+  color: #1558a6;
+}
+
+.fireworks-trigger:focus-visible {
+  outline: 2px solid #1558a6;
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+.fireworks-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
 }
 
 .nav-links {
