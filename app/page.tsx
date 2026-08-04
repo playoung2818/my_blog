@@ -15,7 +15,7 @@ const posts: Post[] = [
     title: "Reanimation-Jutsu",
     year: 2026,
     blurb:
-      "Designed to being able to talk with Luxun, a chinese writer i admire",
+      "Designed to let me talk with people I admire who have passed away.",
     url: "https://github.com/playoung2818/Reanimation-Jutsu",
     external: true,
     status: "open",
