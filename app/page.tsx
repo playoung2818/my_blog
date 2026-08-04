@@ -6,19 +6,17 @@ type Post = {
   year: number;
   blurb: string;
   url?: string;
-  repositoryUrl?: string;
   external?: boolean;
   status?: "draft" | "open";
 };
 
 const posts: Post[] = [
   {
-    title: "Luxun GPT",
+    title: "Reanimation-Jutsu",
     year: 2026,
     blurb:
       "Designed to being able to talk with Luxun, a chinese writer i admire",
-    url: "https://huggingface.co/spaces/Playoung2818/Zhongshu_Qian",
-    repositoryUrl: "https://github.com/playoung2818/Reanimation-Jutsu",
+    url: "https://github.com/playoung2818/Reanimation-Jutsu",
     external: true,
     status: "open",
   },
@@ -167,22 +165,7 @@ export default function Home() {
                         ) : (
                           <span className="post-title">{post.title}</span>
                         )}
-                        <p className="muted small">
-                          {post.blurb}
-                          {post.repositoryUrl ? (
-                            <>
-                              {" · "}
-                              <a
-                                className="inline-link"
-                                href={post.repositoryUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                GitHub
-                              </a>
-                            </>
-                          ) : null}
-                        </p>
+                        <p className="muted small">{post.blurb}</p>
                       </div>
                       {post.status === "open" && post.url ? (
                         <a
