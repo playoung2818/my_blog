@@ -109,6 +109,10 @@ a {
   max-width: 760px;
 }
 
+.home-shell {
+  overflow: visible;
+}
+
 .center-shell .nav-chip {
   margin-bottom: 16px;
 }
