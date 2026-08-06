@@ -491,6 +491,10 @@ a {
   gap: 10px;
   color: var(--text-primary);
   margin-bottom: 16px;
+  font-family: "Eurostile Extended", "Eurostile Extd", Eurostile,
+    "Microgramma D Extended", "Arial Black", sans-serif;
+  font-stretch: expanded;
+  font-weight: 700;
 }
 
 .avatar {
