@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Space_Mono } from "next/font/google";
+import { Oxanium, Space_Grotesk, Space_Mono } from "next/font/google";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -13,6 +13,13 @@ const spaceMono = Space_Mono({
   variable: "--font-space-mono",
   subsets: ["latin"],
   weight: ["400", "700"],
+  display: "swap",
+});
+
+const oxanium = Oxanium({
+  variable: "--font-oxanium",
+  subsets: ["latin"],
+  weight: ["700"],
   display: "swap",
 });
 
@@ -30,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.variable} ${spaceMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${spaceMono.variable} ${oxanium.variable} antialiased`}
       >
         {children}
       </body>
