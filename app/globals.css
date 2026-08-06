@@ -27,12 +27,6 @@
 }
 
 body {
-  --timeline-offset: max(
-    0px,
-    calc(
-      max(0px, (100vw - 760px) / 2) + clamp(20px, 5vw, 64px) - 72px
-    )
-  );
   margin: 0;
   color: var(--text-primary);
   background-color: #fbfbf9;
@@ -107,10 +101,6 @@ a {
 
 .center-shell {
   max-width: 760px;
-}
-
-.home-shell {
-  overflow: visible;
 }
 
 .center-shell .nav-chip {
@@ -600,8 +590,6 @@ a {
 }
 
 .blog-year {
-  width: calc(100% + var(--timeline-offset));
-  margin-left: calc(-1 * var(--timeline-offset));
   padding: 14px 0;
   border-bottom: 1px solid #1c2340;
 }

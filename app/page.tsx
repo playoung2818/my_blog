@@ -67,7 +67,7 @@ const before2022 = {
 
 export default function Home() {
   return (
-    <div className="page-shell center-shell home-shell">
+    <div className="page-shell center-shell">
       <div className="cover-block drawing-cover" aria-hidden="true">
         <img
           src="/images/drawing-figure-1.png"
