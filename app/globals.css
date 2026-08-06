@@ -27,8 +27,11 @@
 }
 
 body {
-  --paper-margin: calc(
-    max(0px, (100vw - 760px) / 2) + clamp(20px, 5vw, 64px)
+  --timeline-offset: max(
+    0px,
+    calc(
+      max(0px, (100vw - 760px) / 2) + clamp(20px, 5vw, 64px) - 72px
+    )
   );
   margin: 0;
   color: var(--text-primary);
@@ -44,10 +47,10 @@ body {
     linear-gradient(
       to right,
       transparent 0,
-      transparent var(--paper-margin),
-      #0f172a20 var(--paper-margin),
-      #0f172a20 calc(var(--paper-margin) + 1px),
-      transparent calc(var(--paper-margin) + 1px)
+      transparent 72px,
+      #0f172a20 72px,
+      #0f172a20 73px,
+      transparent 73px
     );
   font-family: var(--font-sans);
   min-height: 100vh;
@@ -593,6 +596,8 @@ a {
 }
 
 .blog-year {
+  width: calc(100% + var(--timeline-offset));
+  margin-left: calc(-1 * var(--timeline-offset));
   padding: 14px 0;
   border-bottom: 1px solid #1c2340;
 }
