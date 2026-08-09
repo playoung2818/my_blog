@@ -590,8 +590,9 @@ a {
   --timeline-year-width: var(--notebook-divider-position);
   display: grid;
   gap: 12px;
-  width: calc(50% + 50vw);
+  width: 100vw;
   margin-left: calc(50% - 50vw);
+  padding-right: 18px;
 }
 
 .timeline-header {
