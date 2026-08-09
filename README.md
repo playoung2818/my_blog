@@ -2,23 +2,16 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+Test in :
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Unique visitor counter
 
@@ -31,11 +24,6 @@ integration supplies `DATABASE_URL`; then add the hashing salt:
 DATABASE_URL=postgresql://...
 VISITOR_HASH_SALT=<a-long-random-secret>
 ```
-
-Legacy Vercel Postgres integrations that expose `POSTGRES_URL` are also
-supported. The API creates the `unique_visitors` table automatically. Changing
-`VISITOR_HASH_SALT` changes visitor identities and can cause returning visitors
-to be counted again.
 
 ## Learn More
 

@@ -1,25 +1,11 @@
 import type { Metadata } from "next";
-import { Oxanium, Space_Grotesk, Space_Mono } from "next/font/google";
+import { Caveat } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-});
-
-const oxanium = Oxanium({
-  variable: "--font-oxanium",
-  subsets: ["latin"],
-  weight: ["700"],
   display: "swap",
 });
 
@@ -36,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${spaceGrotesk.variable} ${spaceMono.variable} ${oxanium.variable} antialiased`}
-      >
+      <body className={`${caveat.variable} antialiased`}>
         {children}
       </body>
     </html>

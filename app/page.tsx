@@ -70,12 +70,12 @@ export default function Home() {
     <div className="page-shell center-shell">
       <div className="cover-block drawing-cover" aria-hidden="true">
         <img
-          src="/images/drawing-figure-1.png"
+          src="/images/drawing-figure-1-transparent.png"
           alt=""
           className="cover-figure"
         />
         <img
-          src="/images/drawing-figure-2.png"
+          src="/images/drawing-figure-2-transparent.png"
           alt=""
           className="cover-figure"
         />
@@ -142,8 +142,8 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="section-header">Writing Timeline</div>
         <div className="blog-list">
+          <div className="section-header timeline-header">Timeline</div>
           {years.map((year) => (
             <section key={year} className="blog-year">
               <h2 className="blog-year-title">{year}</h2>
@@ -184,24 +184,24 @@ export default function Home() {
               </ul>
             </section>
           ))}
-        </div>
 
-        <section className="blog-year">
-          <h2 className="blog-year-title">{before2022.title}</h2>
-          <ul className="post-list">
-            <li className="post-row">
-              <div>
-                <a className="post-title-link" href={before2022.url}>
-                  {before2022.title}
+          <section className="blog-year">
+            <h2 className="blog-year-title">{before2022.title}</h2>
+            <ul className="post-list">
+              <li className="post-row">
+                <div>
+                  <a className="post-title-link" href={before2022.url}>
+                    {before2022.title}
+                  </a>
+                  <p className="muted small">{before2022.blurb}</p>
+                </div>
+                <a className="pill pill-link" href={before2022.url}>
+                  OPEN
                 </a>
-                <p className="muted small">{before2022.blurb}</p>
-              </div>
-              <a className="pill pill-link" href={before2022.url}>
-                OPEN
-              </a>
-            </li>
-          </ul>
-        </section>
+              </li>
+            </ul>
+          </section>
+        </div>
       </section>
 
       <div className="footer">
