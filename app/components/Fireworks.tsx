@@ -9,6 +9,8 @@ type Rocket = Point & {
   target: number;
   trail: Point[];
   color: string;
+  delay: number;
+  climbSpeed: number;
 };
 
 type Petal = Point & {
@@ -16,16 +18,22 @@ type Petal = Point & {
   vy: number;
   age: number;
   color: string;
+  size: number;
 };
 
-const colors = ["#00f5d4", "#00bbf9", "#f15bb5", "#fee440", "#9b5de5"];
+// Warm fire palette — reds, oranges, golds and a white-hot core, closer to a
+// real fireworks show than flat single-color sparks.
+const colors = ["#ff3c38", "#ff6b35", "#ff9e00", "#ffc300", "#fff275", "#fff8e7"];
 
 function pickColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-function makeStarSprite(color: string) {
-  const size = 16;
+// Small glowing square — a chunky, blocky pixel of light rather than a
+// smooth vector shape, closer to the pixelated look of a low-res burst.
+function makePixelSprite(color: string) {
+  const size = 10;
+  const blockSize = 6;
   const sprite = document.createElement("canvas");
   sprite.width = size;
   sprite.height = size;
@@ -33,38 +41,22 @@ function makeStarSprite(color: string) {
   const spriteContext = sprite.getContext("2d");
   if (!spriteContext) return sprite;
 
-  const points = 4;
-  const outerRadius = size / 2 - 1;
-  const innerRadius = outerRadius * 0.35;
-
-  spriteContext.save();
-  spriteContext.translate(size / 2, size / 2);
-  spriteContext.beginPath();
-  for (let index = 0; index < points * 2; index += 1) {
-    const radius = index % 2 === 0 ? outerRadius : innerRadius;
-    const angle = (Math.PI / points) * index - Math.PI / 2;
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-    if (index === 0) spriteContext.moveTo(x, y);
-    else spriteContext.lineTo(x, y);
-  }
-  spriteContext.closePath();
+  const offset = (size - blockSize) / 2;
   spriteContext.fillStyle = color;
   spriteContext.shadowColor = color;
-  spriteContext.shadowBlur = 6;
-  spriteContext.fill();
-  spriteContext.restore();
+  spriteContext.shadowBlur = 4;
+  spriteContext.fillRect(offset, offset, blockSize, blockSize);
 
   return sprite;
 }
 
 function makePetals(x: number, y: number): Petal[] {
   const petals: Petal[] = [];
-  const count = 28;
+  const count = 32;
 
   for (let index = 0; index < count; index += 1) {
     const angle = (index / count) * Math.PI * 2 + Math.random() * 0.15;
-    const speed = 2.2 + Math.random() * 1.8;
+    const speed = 2 + Math.random() * 2.2;
 
     petals.push({
       x,
@@ -73,10 +65,31 @@ function makePetals(x: number, y: number): Petal[] {
       vy: Math.sin(angle) * speed,
       age: 0,
       color: pickColor(),
+      size: 0.7 + Math.random() * 0.6,
     });
   }
 
   return petals;
+}
+
+function makeRockets(width: number, height: number): Rocket[] {
+  const count = 11;
+  const rockets: Rocket[] = [];
+
+  for (let index = 0; index < count; index += 1) {
+    rockets.push({
+      x: width * (0.12 + Math.random() * 0.76),
+      y: height - 24,
+      vx: -0.6 + Math.random() * 1.2,
+      target: height * (0.1 + Math.random() * 0.35),
+      trail: [],
+      color: pickColor(),
+      delay: index * 4 + Math.random() * 10,
+      climbSpeed: 3.4 + Math.random() * 1.4,
+    });
+  }
+
+  return rockets;
 }
 
 export default function Fireworks() {
@@ -100,17 +113,9 @@ export default function Fireworks() {
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
     const petalSprites = new Map(
-      colors.map((color) => [color, makeStarSprite(color)]),
+      colors.map((color) => [color, makePixelSprite(color)]),
     );
-    const launchSpeeds = [-2.4, -1.2, 0, 1.2, 2.4];
-    let rockets: Rocket[] = launchSpeeds.map((vx) => ({
-      x: width / 2,
-      y: height - 24,
-      vx,
-      target: height * (0.12 + Math.random() * 0.22),
-      trail: [],
-      color: pickColor(),
-    }));
+    let rockets: Rocket[] = makeRockets(width, height);
     let petals: Petal[] = [];
     let frameId = 0;
 
@@ -119,10 +124,16 @@ export default function Fireworks() {
 
       const nextRockets: Rocket[] = [];
       for (const rocket of rockets) {
+        if (rocket.delay > 0) {
+          rocket.delay -= 1;
+          nextRockets.push(rocket);
+          continue;
+        }
+
         rocket.trail.push({ x: rocket.x, y: rocket.y });
         rocket.trail = rocket.trail.slice(-6);
         rocket.x += rocket.vx;
-        rocket.y -= 4;
+        rocket.y -= rocket.climbSpeed;
 
         rocket.trail.forEach((point, index) => {
           context.globalAlpha = ((index + 1) / rocket.trail.length) * 0.35;
@@ -153,7 +164,8 @@ export default function Fireworks() {
         petal.vx *= 0.986;
 
         if (petal.x > 0 && petal.x < width && petal.y < height && petal.age < 70) {
-          const scale = petal.age < 8 ? 0.5 + (petal.age / 8) * 0.9 : Math.max(0.3, 1.4 - petal.age / 60);
+          const scale =
+            (petal.age < 8 ? 0.5 + (petal.age / 8) * 0.9 : Math.max(0.3, 1.4 - petal.age / 60)) * petal.size;
           context.globalAlpha = petal.age < 55 ? 1 : Math.max(0, (70 - petal.age) / 15);
           const sprite = petalSprites.get(petal.color);
           if (sprite) {
