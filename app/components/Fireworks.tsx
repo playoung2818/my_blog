@@ -20,64 +20,60 @@ type Petal = Point & {
 
 const colors = ["#00f5d4", "#00bbf9", "#f15bb5", "#fee440", "#9b5de5"];
 
-const pompompurinFrame = [
-  "⢠⠋⠒⠙⡄⠀⣀⢴⠛⡦⣀⠀⠀⢠⠢⠔⡄",
-  "⠀⠑⣀⣊⠤⠯⣥⣄⣀⣠⣬⠵⣀⡈⠢⠔⠁",
-  "⣰⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠓⠦⣄",
-  "⣏⠀⢠⠟⠀⠛⠀⢠⣤⠀⠶⠀⠘⣇⠀⠀⣹",
-  "⠙⠒⣾⠀⠀⠀⠘⠚⠓⠚⠀⠀⠀⠙⡲⠚⠁",
-  "⠀⢀⡾⠀⣀⠔⠒⢞⣫⡷⠖⠢⡀⠀⢧⠀⠀",
-  "⠀⣼⠥⡀⢀⡀⣀⡜⠀⢣⣀⣀⠀⡴⠚⢦⠀",
-  "⢸⠁⠀⠙⡀⠀⠀⠙⠒⠋⠀⠀⠨⠀⠀⢸⠀",
-  "⠀⠳⣄⣠⠴⠤⠤⠤⠤⠤⠤⠤⠦⣤⡤⠋⠀",
-];
-
 function pickColor() {
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
-function makePompompurinSprite(color: string) {
+function makeStarSprite(color: string) {
+  const size = 16;
   const sprite = document.createElement("canvas");
+  sprite.width = size;
+  sprite.height = size;
+
   const spriteContext = sprite.getContext("2d");
   if (!spriteContext) return sprite;
 
-  const font = '7px "SFMono-Regular", Menlo, Consolas, monospace';
-  const lineHeight = 8;
-  const padding = 2;
-  spriteContext.font = font;
-  sprite.width =
-    Math.ceil(Math.max(...pompompurinFrame.map((line) => spriteContext.measureText(line).width))) +
-    padding * 2;
-  sprite.height = pompompurinFrame.length * lineHeight + padding * 2;
+  const points = 4;
+  const outerRadius = size / 2 - 1;
+  const innerRadius = outerRadius * 0.35;
 
-  spriteContext.font = font;
+  spriteContext.save();
+  spriteContext.translate(size / 2, size / 2);
+  spriteContext.beginPath();
+  for (let index = 0; index < points * 2; index += 1) {
+    const radius = index % 2 === 0 ? outerRadius : innerRadius;
+    const angle = (Math.PI / points) * index - Math.PI / 2;
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+    if (index === 0) spriteContext.moveTo(x, y);
+    else spriteContext.lineTo(x, y);
+  }
+  spriteContext.closePath();
   spriteContext.fillStyle = color;
-  spriteContext.textBaseline = "top";
-  pompompurinFrame.forEach((line, index) => {
-    spriteContext.fillText(line, padding, padding + index * lineHeight);
-  });
+  spriteContext.shadowColor = color;
+  spriteContext.shadowBlur = 6;
+  spriteContext.fill();
+  spriteContext.restore();
 
   return sprite;
 }
 
 function makePetals(x: number, y: number): Petal[] {
   const petals: Petal[] = [];
+  const count = 28;
 
-  for (const side of [-1, 1]) {
-    for (let index = 0; index < 10; index += 1) {
-      const spread = 0.75 + (index / 9) * 1.45;
-      const angle = -Math.PI / 2 + side * spread;
-      const speed = 2.5 + Math.random() * 1.5;
+  for (let index = 0; index < count; index += 1) {
+    const angle = (index / count) * Math.PI * 2 + Math.random() * 0.15;
+    const speed = 2.2 + Math.random() * 1.8;
 
-      petals.push({
-        x,
-        y,
-        vx: Math.cos(angle) * speed * 1.9,
-        vy: Math.sin(angle) * speed * 0.8,
-        age: 0,
-        color: pickColor(),
-      });
-    }
+    petals.push({
+      x,
+      y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      age: 0,
+      color: pickColor(),
+    });
   }
 
   return petals;
@@ -104,7 +100,7 @@ export default function Fireworks() {
     context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
 
     const petalSprites = new Map(
-      colors.map((color) => [color, makePompompurinSprite(color)]),
+      colors.map((color) => [color, makeStarSprite(color)]),
     );
     const launchSpeeds = [-2.4, -1.2, 0, 1.2, 2.4];
     let rockets: Rocket[] = launchSpeeds.map((vx) => ({
@@ -156,11 +152,11 @@ export default function Fireworks() {
         petal.vy += 0.12;
         petal.vx *= 0.986;
 
-        if (petal.x > 0 && petal.x < width && petal.y < height) {
-          context.globalAlpha = 1;
+        if (petal.x > 0 && petal.x < width && petal.y < height && petal.age < 70) {
+          const scale = petal.age < 8 ? 0.5 + (petal.age / 8) * 0.9 : Math.max(0.3, 1.4 - petal.age / 60);
+          context.globalAlpha = petal.age < 55 ? 1 : Math.max(0, (70 - petal.age) / 15);
           const sprite = petalSprites.get(petal.color);
           if (sprite) {
-            const scale = petal.age < 35 ? 0.7 : 0.55;
             const spriteWidth = sprite.width * scale;
             const spriteHeight = sprite.height * scale;
             context.drawImage(
