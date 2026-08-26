@@ -44,14 +44,6 @@ const posts: Post[] = [
     url: "/bizarro",
     status: "open",
   },
-  {
-    title: "Policy Pathways Driving Innovation in High-Tech Enterprises",
-    year: 2022,
-    blurb:
-      "Analyzes how policy combinations influence innovation outcomes in Yangtze River Delta high-tech firms.",
-    url: "/policy-pathways",
-    status: "open",
-  },
 ];
 
 const years = Array.from(new Set(posts.map((post) => post.year))).sort(
