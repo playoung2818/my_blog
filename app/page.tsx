@@ -83,8 +83,8 @@ export default function Home() {
             code
           </a>
           <span>∘</span>
-          <a href="https://dune.com/james0227" target="_blank" rel="noreferrer">
-            dashboards
+          <a href="/notes">
+            notes
           </a>
         </div>
       </header>
