@@ -16,7 +16,7 @@ const posts: Post[] = [
     year: 2026,
     blurb:
       "Designed to let me talk with people I admire who have passed away.",
-    url: "/luxun",
+    url: "/reanimation",
     status: "open",
   },
   {
