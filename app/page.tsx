@@ -16,8 +16,7 @@ const posts: Post[] = [
     year: 2026,
     blurb:
       "Designed to let me talk with people I admire who have passed away.",
-    url: "https://github.com/playoung2818/Reanimation-Jutsu",
-    external: true,
+    url: "/luxun",
     status: "open",
   },
   {
