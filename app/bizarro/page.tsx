@@ -2,7 +2,7 @@ import { extractDocxParagraphs } from "../lib/docx";
 
 export const metadata = {
   title: "Bizarro Capital | Zheyuan Chen",
-  description: "Bizarro Capital RL case study and reference letter.",
+  description: "A reference Letter from the Manager.",
 };
 
 export default async function BizarroPage() {

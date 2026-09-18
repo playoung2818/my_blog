@@ -20,10 +20,10 @@ const posts: Post[] = [
     status: "open",
   },
   {
-    title: "ERP System",
+    title: "MRP System",
     year: 2025,
     blurb:
-      "TL;DR: An MRP system that automatically prioritizes sales orders, reallocates inventory, and calculates what to buy—so you keep service levels high without bloating inventory.",
+      "Core idea is building up a feature item ledger",
     url: "https://github.com/playoung2818/ERP_System",
     external: true,
     status: "open",
@@ -31,7 +31,7 @@ const posts: Post[] = [
   {
     title: "Serial Number Lookup Tool",
     year: 2024,
-    blurb: "Flask + Postgres tool that return serial number information, and used record",
+    blurb: "Flask + Postgres tool that return serial number information",
     url: "https://github.com/playoung2818/Lookup-Part-Name-by-Serial-Number",
     external: true,
     status: "open",
@@ -39,7 +39,7 @@ const posts: Post[] = [
   {
     title: "Bizarro Capital",
     year: 2023,
-    blurb: "RL case study and notes (Bizarro Capital).",
+    blurb: "A Reference Letter from the Manager",
     url: "/bizarro",
     status: "open",
   },
