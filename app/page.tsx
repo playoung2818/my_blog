@@ -39,7 +39,7 @@ const posts: Post[] = [
   {
     title: "Bizarro Capital",
     year: 2023,
-    blurb: "A Reference Letter from the Manager",
+    blurb: "A Reference Letter from my Manager",
     url: "/bizarro",
     status: "open",
   },
@@ -51,7 +51,7 @@ const years = Array.from(new Set(posts.map((post) => post.year))).sort(
 
 const before2022 = {
   title: "Before 2022",
-  blurb: "Older work, notes, and studies collected in one place.",
+  blurb: "nostalgia~~~",
   url: "/before-2022",
   status: "open" as const,
 };
