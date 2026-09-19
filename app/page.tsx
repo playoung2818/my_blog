@@ -158,16 +158,7 @@ export default function Home() {
                         )}
                         <p className="muted small">{post.blurb}</p>
                       </div>
-                      {post.status === "open" && post.url ? (
-                        <a
-                          className="pill pill-link"
-                          href={post.url}
-                          target={post.external ? "_blank" : undefined}
-                          rel={post.external ? "noreferrer" : undefined}
-                        >
-                          OPEN
-                        </a>
-                      ) : post.status ? (
+                      {post.status === "draft" ? (
                         <span className="pill">{post.status}</span>
                       ) : null}
                     </li>
@@ -186,9 +177,6 @@ export default function Home() {
                   </a>
                   <p className="muted small">{before2022.blurb}</p>
                 </div>
-                <a className="pill pill-link" href={before2022.url}>
-                  OPEN
-                </a>
               </li>
             </ul>
           </section>
