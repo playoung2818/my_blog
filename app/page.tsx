@@ -107,25 +107,16 @@ export default function Home() {
               , and now live in Chicago.
             </p>
             <p>
-              At work, I spend lots of time on{" "}
-              <a
-                className="inline-link"
-                href="https://github.com/playoung2818/ERP_System"
-                target="_blank"
-                rel="noreferrer"
-              >
-                automating tedious workflows
-              </a>{" "}
-              . On weekends, you’ll usually find me{" "}
+              Usually, you’ll find me{" "}
               <a
                 className="inline-link"
                 href="https://www.instagram.com/playoung2818?igsh=bHlwOWt5ZjN6d2xq&utm_source=qr"
                 target="_blank"
                 rel="noreferrer"
               >
-                biking or reading to recharge
-              </a>
-              .
+                biking, reading, or simply daydreaming by Lake Michigan
+              </a>{" "}
+              when I need to recharge.
             </p>
             <p>
               I’m open to collaborating on any project — as long as it’s legal. You can reach me
