@@ -26,6 +26,9 @@ export default function StockChartsPage() {
               Open in Colab ↗
             </a>
           </p>
+          <ul className="list-disc space-y-2 pl-6">
+            <li><strong>MACD:</strong> Indicates momentum and potential trend changes.</li>
+          </ul>
         </div>
       </div>
     </main>
