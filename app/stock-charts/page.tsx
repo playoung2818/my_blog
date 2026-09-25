@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Stock Charts | Zheyuan Chen",
-  description: "Run a stock analysis notebook in Colab with a ticker of your choice.",
+  description: "I find this notebook a good way to quickly get an update of the metrics i am interested by running through all the cells",
 };
 
 const colabUrl =
@@ -17,11 +17,6 @@ export default function StockChartsPage() {
         <h1 className="headline compact">Stock Charts: MACD &amp; RSI</h1>
         <div className="doc-content">
           <p className="doc-paragraph">
-            This Python notebook downloads adjusted daily stock prices from Yahoo Finance.
-            It displays price, volume, and MACD charts, plus RSI values in a table.
-            The analysis runs in Google Colab.
-          </p>
-          <p className="doc-paragraph">
             <a
               href={colabUrl}
               target="_blank"
@@ -30,19 +25,6 @@ export default function StockChartsPage() {
             >
               Open in Colab ↗
             </a>
-          </p>
-          <ol className="list-decimal space-y-2 pl-6">
-            <li>Open the notebook in Colab.</li>
-            <li>Set SYMBOL to your ticker, for example <code>{'SYMBOL = "MSFT"'}</code>.</li>
-            <li>Select Runtime → Run all.</li>
-            <li>Scroll down to view the tables and chart.</li>
-          </ol>
-          <p className="doc-paragraph">
-            To analyze another stock, change SYMBOL, then select Runtime → Run all again.
-          </p>
-          <p className="doc-paragraph">
-            Colab can require a Google sign-in and permission to run the notebook.
-            Data downloads depend on Yahoo Finance availability and request limits.
           </p>
         </div>
       </div>
