@@ -14,7 +14,7 @@ export default function StockChartsPage() {
     <main className="page-shell center-shell">
       <div className="doc-page">
         <Link className="inline-link" href="/">← Home</Link>
-        <h1 className="headline compact">Stock Charts: MACD &amp; RSI</h1>
+        <h1 className="headline compact">Trading Matrics Visualization</h1>
         <div className="doc-content">
           <p className="doc-paragraph">
             <a
