@@ -12,6 +12,13 @@ type Post = {
 
 const posts: Post[] = [
   {
+    title: "Stock Charts: MACD & RSI",
+    year: 2026,
+    blurb: "Choose a stock ticker and run my Python notebook in Google Colab.",
+    url: "/stock-charts",
+    status: "open",
+  },
+  {
     title: "Reanimation-Jutsu",
     year: 2026,
     blurb:
