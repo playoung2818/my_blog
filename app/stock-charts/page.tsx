@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Stock Charts | Zheyuan Chen",
-  description: "I find this notebook a good way to quickly get an update of the metrics i am interested by running through all the cells",
+  description: "I find this notebook a good way to quickly get an update of the metrics i am interested by running through all the cells, I promise I will review each AI generated Code before submit!",
 };
 
 const colabUrl =
