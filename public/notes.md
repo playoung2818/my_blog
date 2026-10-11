@@ -4,3 +4,6 @@
 
 
 9/30/2026 - [Less is more](https://www.youtube.com/watch?v=OSGv2VnC0go). I am going to focus on doing minus on my codebases, and record the replacement and thoughts. Good learning at this day.
+
+
+10/11/2026 - Seperate my handwritten words apart from AI generated, take my words are clean and spontaneous mind. But do we know about mind? or soul?
