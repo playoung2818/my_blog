@@ -23,7 +23,7 @@ const photos: { src: StaticImageData; alt: string; note: string }[] = [
   { src: shanghai05, alt: "A memory from Shanghai", note: "I used to ride to cycle along the Huangpu River in high school" },
   { src: shanghai06, alt: "A memory from Shanghai", note: "Me at top right 8" },
   { src: shanghai07, alt: "A memory from Shanghai", note: "Learned about Friendship" },
-  { src: shanghai08, alt: "A memory from Shanghai", note: "Learned about Love" },
+  { src: shanghai08, alt: "A memory from Shanghai", note: "What a beatiful and cool woman!" },
   { src: shanghai10, alt: "A memory from Shanghai", note: "Bizarre graduation ceremony in pandemic (Me at top right 1)" },
 ];
 
