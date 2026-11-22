@@ -2,33 +2,15 @@
 
 QuickBooks is a reliable accounting system, but I often have to review several separate reports to make a single material planning decision. I built this MRP system to bring those reports together and see how incoming supply and customer demand affect inventory over time.
 
-At the core is a [**time-phased inventory ledger**](https://docs.oracle.com/en/applications/jd-edwards/localizations/9.2/eoape/understanding-the-inventory-ledger.html) that shows how much stock we expect to have on any given date. How much stock will we have on a specific date? How many we would left before all those unconfirmed Sales orders? How many before unconfirmed purchase orders? 
+At the core is a [**time-phased inventory ledger**](https://docs.oracle.com/en/applications/jd-edwards/localizations/9.2/eoape/understanding-the-inventory-ledger.html) that shows how much stock we expect to have on any given date. The ledger answers these questions:
 
-## Why the date matters
+- How much stock will remain on a specific date?
+- What is the projected balance before unconfirmed sales orders?
+- What is the projected balance before unconfirmed purchase orders? 
 
-We operate a [make-to-order](https://www.investopedia.com/terms/m/make-to-order.asp) business. Customers need short lead times, and we need a credible delivery date when an order arrives. 
+## How the inventory ledger works
 
-The immediate problem is visibility. A current stock count tells me what’s on hand today. To plan ahead, I also need to know whether an incoming purchase order will arrive in time to cover a sales order and how many units I can promise on a new quote. The ledger puts inventory, incoming supply, and customer demand on one timeline so I can answer both questions.
-
-For example, we want to know the inventory status of `DDR5-16GB-56-SM`:
-
-| Item | On Hand | On Sales Order | Available | On PO |
-| --- | ---: | ---: | ---: | ---: |
-| DDR5-16GB-56-SM | 20 | 103 | <span style="color: #dc2626;">-83</span>| 108 |
-
-The available quantity is negative, while the purchase quantity exceeds the sales demand. Neither total tells me when material becomes available. The answer depends on the sequence of receipts and shipments.
-
-Without the timeline, that decision requires separate views:
-
-- The inventory report shows current stock and aggregate commitments.
-- The supply schedule shows expected receipts.
-- The sales order report shows demand and requested shipment dates.
-
-Ledger combines those views around an item and its inventory movements.
-
-## One event model for supply and demand
-
-Each ledger row represents an inventory event. The opening row establishes the stock baseline. Inbound events add supply, and outbound events subtract demand.
+Each ledger row represents an inventory event. The ledger calculates a cumulative sum separately for each item, in timeline order:
 
 | Field | Meaning |
 | --- | --- |
@@ -40,22 +22,65 @@ Each ledger row represents an inventory event. The opening row establishes the s
 | `CumDelta` | The cumulative change for the item |
 | `Projected_OnHand` | The stock balance after the event |
 
-
-### The projected balance
-
-The ledger calculates a cumulative sum separately for each item, in timeline order:
-
 ```text
 CumDelta = cumulative sum of Delta
-Projected_NAV = Opening + CumDelta
-Projected_OnHand = Projected_NAV
+Projected_OnHand = Opening + CumDelta
 ```
 
-`Projected_NAV` is the calculation name in the supplied logic. Quotation Lookup displays that balance as `Projected_OnHand`.
+## Use case 1: Quotation Lookup
 
-## A shortage inside the timeline
+We operate a [**make-to-order**](https://www.investopedia.com/terms/m/make-to-order.asp) business. Customers need short lead times, and we need a credible delivery date when an order arrives. 
 
-This illustrative snapshot uses November 4, 2026, as its opening date:
+Quotation Lookup answers two questions: how many units can I promise, and on what date? A current stock count shows what is on hand today. The ledger shows whether future receipts can support a new order without disruption to existing commitments.
+
+### Why the current totals are not enough
+
+For example, we want to know the inventory status of `DDR5-16GB-56-SM`:
+
+| Item | On Hand | On Sales Order | Available | On PO |
+| --- | ---: | ---: | ---: | ---: |
+| DDR5-16GB-56-SM | 20 | 103 | <span style="color: #dc2626;">-83</span> | 108 |
+
+The available quantity is negative, while the purchase quantity exceeds the sales demand. Neither total tells me when material becomes available. The answer depends on the sequence of receipts and shipments.
+
+Without the timeline, that decision requires separate views:
+
+- The inventory report shows current stock and aggregate commitments.
+- The supply schedule shows expected receipts.
+- The sales order report shows demand and requested shipment dates.
+
+Ledger combines those views around an item and its inventory movements.
+
+### How much can we promise on a new quote?
+
+A new shipment reduces the projected balance on its ship date and on every date that follows. I use the **lowest projected balance from the proposed shipment onward**, within the dated events. That balance sets the maximum additional quantity that leaves all later dated balances at zero or above.
+
+| Date | Kind | Delta | Projected_OnHand |
+| --- | --- | ---: | ---: |
+| Nov 2 | OPEN | — | 30 |
+| Nov 5 | OUT | -20 | 10 |
+| Nov 10 | IN | +40 | 50 |
+| Nov 12 | OUT | -25 | 25 |
+
+On November 2, there are 30 units on hand, but the November 5 shipment brings the projected balance down to 10. I can promise up to 10 units for November 2. After the November 10 receipt, the next commitment reduces the balance to 25. I can promise up to 25 units for November 10.
+
+| New requirement | Earliest ship date | What happens to the later balance |
+| --- | --- | --- |
+| 10 units | Nov 2 | The Nov 5 balance falls to 0. |
+| 25 units | Nov 10 | The Nov 12 balance falls to 0. |
+| 26 units | No feasible date in the example | Even after the Nov 10 receipt, the Nov 12 balance falls to -1. |
+
+### Verification before a promise
+
+The full ledger can display undated events. For a specific ship date, I use the dated balances from that date forward. I verify any receipt that the promise depends on. Placeholder supply does not establish a delivery date.
+
+## Use case 2: Material requirements planning (MRP)
+
+MRP uses the ledger to determine whether supply covers existing demand on time. It identifies the date and quantity of a shortage.
+
+### When does the shortage occur?
+
+The ledger starts with 10 units on November 4. The next day, a receipt adds five units and a shipment uses eight units. The projected balance falls to seven units. On November 6, a second sales order needs nine units. That order creates a **projected shortage of two units**.
 
 | Date | Kind | Source | Reference | Delta | CumDelta | Projected_OnHand |
 | --- | --- | --- | --- | ---: | ---: | ---: |
@@ -65,49 +90,25 @@ This illustrative snapshot uses November 4, 2026, as its opening date:
 | 2026-11-06 | OUT | SO | SO-002 | -9 | -12 | **-2** |
 | 2099-12-31 | IN | HQ | Unconfirmed supply | +20 | +8 | 18 |
 
-The item starts with 10 units. The receipt adds five units, and the first sales order consumes eight units. The second sales order leaves a shortage of two units on November 6.
+For events on the same date, the ledger processes receipts before shipments. On November 5, the ledger adds five incoming units before it subtracts eight units for the shipment.
 
-The final balance reaches 18 only after the unconfirmed supply event. That quantity does not resolve the dated shortage because the receipt lacks a confirmed arrival date.
+### Why unconfirmed supply does not resolve the shortage
 
-The example places the receipt before the shipment on November 5. The supplied logic does not specify a general rule for events on the same date. Their order affects intermediate balances, even when the final daily balance stays the same.
+The final balance reaches 18 once the ledger includes the 20 units of unconfirmed supply. The `2099-12-31` date is a placeholder. Those units have no confirmed arrival date that establishes coverage for the November 6 shortage.
 
+### Which components block the order?
 
-## A quotation must preserve later commitments
+Each movement links back to its source record, so I can verify the quantity and date. The ledger shows which incoming receipt can cover the shortage if it arrives in time.
 
-The opening balance alone does not determine how much stock a new order can use. Later sales orders already need part of that stock.
+`Waiting_Item` shows the latest blocking items saved in Planning for the order’s `QB Num`. One component can have enough stock while another component blocks the order. This context connects the item balance to the complete order.
 
-The manual gives a second example:
+## Results and limits
 
-| Date | Kind | Delta | Projected_OnHand |
-| --- | --- | ---: | ---: |
-| Nov 2 | OPEN | — | 30 |
-| Nov 5 | OUT | -20 | 10 |
-| Nov 10 | IN | +40 | 50 |
-| Nov 12 | OUT | -25 | 25 |
+Ledger provides a dated projection based on the records available to it. It does not calculate an optimal safety-stock quantity. That decision also requires these inputs:
 
-For a new shipment on November 2, the lowest subsequent dated balance is 10. For a shipment after the November 10 receipt, that minimum is 25.
-
-The manual’s quotation rule requires every dated balance to remain nonnegative after the new order enters the timeline. Placeholder supply does not establish a dated commitment.
-
-| New requirement | Earliest date in this example | Reason |
-| --- | --- | --- |
-| 10 units | Nov 2 | The later minimum falls from 10 to 0 |
-| 25 units | Nov 10 | The later minimum falls from 25 to 0 |
-| 26 units | Not covered by this timeline | The Nov 12 balance falls below zero |
-
-For a candidate date, the available quantity for a new order is bounded by the lowest balance from that point through the dated horizon. This interpretation explains why 30 units on hand do not permit an immediate shipment of 25 units.
-
-The minimum across the entire ledger serves a different purpose. It includes undated commitments, while the quotation example evaluates a candidate date against later dated balances. An actual promise also depends on the unresolved orders and the reliability of the source dates.
-
-## Context for the planner
-
-The timeline connects each movement to its source record. `Waiting_Item` adds the latest saved blocking items from Planning for the row’s `QB Num`. That context helps explain why an order waits, even when one component has enough stock.
-
-Quotation Lookup is useful when QuickBooks shows a negative available quantity or when a customer requests more than the available quantity. The ledger shows where the shortage occurs and which receipt can cover it.
-
-## The boundary of the model
-
-Ledger provides a dated projection based on the records available to it. It does not calculate an optimal safety-stock quantity. That decision also requires demand variability and lead-time variability, plus a target service level and inventory cost assumptions.
+- Demand variability
+- Lead-time variability
+- A target service level
+- Inventory cost assumptions
 
 For my workflow, the first gain is a traceable basis for decisions. I can see the projected balance for an item and the orders behind each change. That evidence supports a discussion about delivery dates before we commit material to a new order.
-
