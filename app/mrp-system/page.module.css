@@ -1,5 +1,6 @@
 .shell {
-  max-width: 960px;
+  max-width: 1280px;
+  padding: 40px clamp(20px, 4vw, 48px) 80px;
 }
 
 .navigation {
@@ -8,104 +9,207 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
+  font-size: 22px;
 }
 
-.navigation a:hover {
+.navigation a:hover,
+.index a:hover {
+  color: #1558a6;
   text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.index {
+  position: sticky;
+  top: 28px;
+  padding-right: 20px;
+  border-right: 1px solid #b4676740;
+  font-size: 21px;
+  line-height: 1.35;
+}
+
+.index p {
+  margin: 0 0 18px;
+  color: #64748b;
+}
+
+.index ol {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.index li {
+  margin-bottom: 18px;
+  padding-left: 4px;
+}
+
+.index li::marker {
+  color: #64748b;
 }
 
 .article {
-  position: relative;
-  padding: clamp(20px, 4vw, 44px);
-  background: #fbfbf9;
-  border: 1px solid #d9dde3;
+  min-width: 0;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 18px;
-  line-height: 1.75;
+  line-height: 1.8;
   overflow-wrap: break-word;
 }
 
 .article h1,
 .article h2,
 .article h3 {
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-family: var(--font-caveat), "Caveat", cursive;
+  line-height: 1.2;
 }
 
 .article h1 {
-  font-size: clamp(30px, 5vw, 44px);
-  margin: 0 0 28px;
+  font-size: clamp(36px, 4.4vw, 56px);
+  margin: 0 0 32px;
 }
 
 .article h2 {
-  font-size: 27px;
-  margin: 42px 0 16px;
+  font-size: clamp(30px, 3vw, 38px);
+  margin: 54px 0 22px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #1558a630;
+  scroll-margin-top: 28px;
 }
 
 .article h3 {
-  font-size: 21px;
-  margin: 28px 0 12px;
+  font-size: 29px;
+  margin: 32px 0 16px;
 }
 
 .article p,
-.article ul {
-  margin: 0 0 20px;
+.article ul,
+.article ol {
+  max-width: 70ch;
+  margin: 0 0 24px;
 }
 
-.article ul {
+.article ul,
+.article ol {
   padding-left: 24px;
+}
+
+.article a {
+  color: #1558a6;
+  text-decoration: underline;
+  text-decoration-color: #1558a660;
+  text-underline-offset: 4px;
 }
 
 .article code {
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 0.8em;
-  background: #eef0f2;
+  background: #e6ebefb0;
   padding: 2px 4px;
 }
 
 .article pre {
   overflow-x: auto;
-  background: #eef0f2;
-  padding: 16px;
+  background: #edf0f2b8;
+  border-left: 2px solid #1558a650;
+  padding: 16px 20px;
   line-height: 1.6;
 }
 
 .article pre code {
   padding: 0;
+  background: transparent;
 }
 
 .article table {
   display: block;
-  max-width: 100%;
+  width: 100%;
   overflow-x: auto;
   border-collapse: collapse;
-  margin: 24px 0;
+  margin: 28px 0;
   font-family: Arial, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
   font-variant-numeric: tabular-nums;
 }
 
 .article th,
 .article td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #d9dde3;
+  padding: 12px;
+  border-bottom: 1px solid #94a3b850;
   white-space: nowrap;
 }
 
 .article th {
-  background: #eef0f2;
+  background: #e5ebf0c0;
   text-align: left;
+}
+
+.article td {
+  background: #fbfbf980;
 }
 
 .article blockquote {
   margin: 24px 0;
   padding: 12px 18px;
   border-left: 3px solid #64748b;
-  background: #eef0f2;
+  background: #eef0f280;
 }
 
 .article blockquote p {
   margin: 0;
+}
+
+.shell a:focus-visible {
+  outline: 2px solid #1558a6;
+  outline-offset: 4px;
+}
+
+@media (max-width: 800px) {
+  .shell {
+    padding: 28px 20px 56px;
+  }
+
+  .navigation {
+    margin-bottom: 28px;
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .index {
+    position: static;
+    padding: 0 0 12px;
+    border-right: 0;
+    border-bottom: 1px solid #b4676740;
+  }
+
+  .index ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 28px;
+  }
+
+  .index li {
+    margin-bottom: 0;
+  }
+
+  .article {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 420px) {
+  .index ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
