@@ -76,6 +76,18 @@
   margin: 0 0 32px;
 }
 
+.article figure {
+  width: 100%;
+  margin: 0 0 32px;
+}
+
+.article figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: multiply;
+}
+
 .article h2 {
   font-size: clamp(30px, 3vw, 38px);
   margin: 54px 0 22px;
