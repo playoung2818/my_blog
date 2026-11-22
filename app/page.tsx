@@ -100,7 +100,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 export default async function Home() {
   const updatedPosts = await getUpdatedPosts();
   return (
-    <div className="page-shell center-shell">
+    <div className="page-shell home-shell">
       <div className="cover-block drawing-cover" aria-hidden="true">
         <img
           src="/images/drawing-figure-1-transparent.png"

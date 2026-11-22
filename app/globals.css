@@ -107,6 +107,26 @@ a {
   margin-bottom: 16px;
 }
 
+.page-shell.home-shell {
+  max-width: 1280px;
+  padding-inline: clamp(20px, 4vw, 48px);
+}
+
+.home-shell .intro {
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 36px);
+}
+
+.home-shell .intro-block {
+  max-width: 70ch;
+}
+
+.home-shell .footer {
+  width: 100%;
+  margin-left: 0;
+  padding: 18px 0 0;
+}
+
 .cover-block {
   position: relative;
   width: 100%;
