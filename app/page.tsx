@@ -30,9 +30,8 @@ const posts: Post[] = [
     title: "MRP System",
     year: 2025,
     blurb:
-      "Core idea is building up a feature item ledger",
-    url: "https://github.com/playoung2818/ERP_System",
-    external: true,
+      "An item ledger for future inventory and material planning decisions.",
+    url: "/mrp-system",
     status: "open",
   },
   {
