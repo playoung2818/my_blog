@@ -3,24 +3,27 @@ import Fireworks from "./components/Fireworks";
 
 type Post = {
   title: string;
-  year: number;
+  updatedAt: string;
+  repository?: string;
   blurb: string;
   url?: string;
   external?: boolean;
   status?: "draft" | "open";
 };
 
+// Update updatedAt when the local project content changes.
 const posts: Post[] = [
   {
     title: "Tradingewww",
-    year: 2026,
+    updatedAt: "2026-09-26T22:15:13-05:00",
     blurb: "Some visualiztions i have been using",
     url: "/stock-charts",
     status: "open",
   },
   {
     title: "Reanimation-Jutsu",
-    year: 2026,
+    updatedAt: "2026-10-04T22:57:40Z",
+    repository: "Reanimation-Jutsu",
     blurb:
       "Designed to let me talk with people I admire who have passed away.",
     url: "/reanimation",
@@ -28,7 +31,8 @@ const posts: Post[] = [
   },
   {
     title: "MRP System",
-    year: 2025,
+    updatedAt: "2026-11-22T00:00:00-06:00",
+    repository: "MRP_System",
     blurb:
       "An item ledger for future inventory and material planning decisions.",
     url: "/mrp-system",
@@ -36,7 +40,8 @@ const posts: Post[] = [
   },
   {
     title: "Serial Number Lookup Tool",
-    year: 2024,
+    updatedAt: "2026-11-06T23:37:26Z",
+    repository: "Lookup-Part-Name-by-Serial-Number",
     blurb: "Flask + Postgres tool that return serial number information",
     url: "https://github.com/playoung2818/Lookup-Part-Name-by-Serial-Number",
     external: true,
@@ -44,25 +49,56 @@ const posts: Post[] = [
   },
   {
     title: "Bizarro Capital",
-    year: 2023,
+    updatedAt: "2026-09-17T20:52:28-05:00",
     blurb: "A Reference Letter from my Manager",
     url: "/bizarro",
     status: "open",
   },
+  {
+    title: "Before 2022",
+    updatedAt: "2026-10-26T21:02:00-05:00",
+    blurb: "nostalgia~~~",
+    url: "/before-2022",
+    status: "open",
+  },
 ];
 
-const years = Array.from(new Set(posts.map((post) => post.year))).sort(
-  (a, b) => b - a,
-);
+export const revalidate = 3600;
 
-const before2022 = {
-  title: "Before 2022",
-  blurb: "nostalgia~~~",
-  url: "/before-2022",
-  status: "open" as const,
-};
+async function getUpdatedPosts(): Promise<Post[]> {
+  let repositories: { name: string; updated_at: string }[] = [];
+  try {
+    const response = await fetch(
+      "https://api.github.com/users/playoung2818/repos?sort=updated&per_page=100",
+      {
+        headers: { Accept: "application/vnd.github+json" },
+        next: { revalidate: 3600 },
+        signal: AbortSignal.timeout(5000),
+      },
+    );
+    if (response.ok) repositories = await response.json();
+  } catch {
+    // Use the saved dates if GitHub is unavailable.
+  }
 
-export default function Home() {
+  return posts.map((post) => {
+    const repository = repositories.find((entry) => entry.name === post.repository);
+    const updatedAt = repository && Date.parse(repository.updated_at) > Date.parse(post.updatedAt)
+      ? repository.updated_at
+      : post.updatedAt;
+    return { ...post, updatedAt };
+  }).sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+}
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "America/Chicago",
+});
+
+export default async function Home() {
+  const updatedPosts = await getUpdatedPosts();
   return (
     <div className="page-shell center-shell">
       <div className="cover-block drawing-cover" aria-hidden="true">
@@ -130,54 +166,35 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="blog-list">
-          <div className="section-header timeline-header">Timeline</div>
-          {years.map((year) => (
-            <section key={year} className="blog-year">
-              <h2 className="blog-year-title">{year}</h2>
-              <ul className="post-list">
-                {posts
-                  .filter((post) => post.year === year)
-                  .map((post) => (
-                    <li key={post.title} className="post-row">
-                      <div>
-                        {post.url ? (
-                          <a
-                            className="post-title-link"
-                            href={post.url}
-                            target={post.external ? "_blank" : undefined}
-                            rel={post.external ? "noreferrer" : undefined}
-                          >
-                            {post.title}
-                          </a>
-                        ) : (
-                          <span className="post-title">{post.title}</span>
-                        )}
-                        <p className="muted small">{post.blurb}</p>
-                      </div>
-                      {post.status === "draft" ? (
-                        <span className="pill">{post.status}</span>
-                      ) : null}
-                    </li>
-                  ))}
-              </ul>
-            </section>
-          ))}
-
-          <section className="blog-year">
-            <h2 className="blog-year-title">{before2022.title}</h2>
-            <ul className="post-list">
-              <li className="post-row">
+        <section className="project-list" aria-labelledby="projects-heading">
+          <h2 id="projects-heading" className="section-header">Projects</h2>
+          <p className="muted small">Most recently updated first</p>
+          <ul className="post-list">
+            {updatedPosts.map((post) => (
+              <li key={post.title} className="post-row">
                 <div>
-                  <a className="post-title-link" href={before2022.url}>
-                    {before2022.title}
-                  </a>
-                  <p className="muted small">{before2022.blurb}</p>
+                  {post.url ? (
+                    <a
+                      className="post-title-link"
+                      href={post.url}
+                      target={post.external ? "_blank" : undefined}
+                      rel={post.external ? "noreferrer" : undefined}
+                    >
+                      {post.title}
+                    </a>
+                  ) : (
+                    <span className="post-title">{post.title}</span>
+                  )}
+                  <p className="muted small">{post.blurb}</p>
+                  <p className="project-updated">
+                    Updated <time dateTime={post.updatedAt}>{dateFormatter.format(new Date(post.updatedAt))}</time>
+                  </p>
                 </div>
+                {post.status === "draft" ? <span className="pill">{post.status}</span> : null}
               </li>
-            </ul>
-          </section>
-        </div>
+            ))}
+          </ul>
+        </section>
       </section>
 
       <div className="footer">
