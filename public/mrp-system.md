@@ -1,22 +1,20 @@
 # MRP System: The Inventory Ledger
 
-My daily material planning decisions depend on reports that answer different parts of the same question: when can we fulfill an order?
+QuickBooks is a reliable accounting system, but I often have to review several separate reports to make a single material planning decision. I built this MRP system to bring those reports together and see how incoming supply and customer demand affect inventory over time.
 
-QuickBooks is our reliable accounting system. In our workflow, its separate reports do not provide the combined view that I need. I review current inventory alongside purchase orders and sales orders. Then I compare those records with the supply schedule.
-
-I built Ledger to put those records into one timeline for each item. The timeline shows the projected stock after each receipt or shipment. It makes a future shortage visible before the customer needs the material.
+At the core is a [**time-phased inventory ledger**](https://docs.oracle.com/en/applications/jd-edwards/localizations/9.2/eoape/understanding-the-inventory-ledger.html) that shows how much stock we expect to have on any given date. How much stock will we have on a specific date? How many we would left before all those unconfirmed Sales orders? How many before unconfirmed purchase orders? 
 
 ## Why the date matters
 
-We operate a make-to-order business. Customers need short lead times, and we need a credible delivery date when an order arrives. Safety stock for core components can reduce the delay before production starts. However, excess stock ties up cash and exposes us to component price changes.
+We operate a [make-to-order](https://www.investopedia.com/terms/m/make-to-order.asp) business. Customers need short lead times, and we need a credible delivery date when an order arrives. 
 
-The immediate problem is visibility. A current stock total cannot show whether a purchase order arrives before the sales order that needs it. Ledger connects quantities to dates so that I can assess that gap.
+The immediate problem is visibility. A current stock count tells me what’s on hand today. To plan ahead, I also need to know whether an incoming purchase order will arrive in time to cover a sales order and how many units I can promise on a new quote. The ledger puts inventory, incoming supply, and customer demand on one timeline so I can answer both questions.
 
-The Quotation Lookup manual gives this example for `DDR5-16GB-56-SM`:
+For example, we want to know the inventory status of `DDR5-16GB-56-SM`:
 
 | Item | On Hand | On Sales Order | Available | On PO |
 | --- | ---: | ---: | ---: | ---: |
-| DDR5-16GB-56-SM | 20 | 103 | -83 | 108 |
+| DDR5-16GB-56-SM | 20 | 103 | <span style="color: #dc2626;">-83</span>| 108 |
 
 The available quantity is negative, while the purchase quantity exceeds the sales demand. Neither total tells me when material becomes available. The answer depends on the sequence of receipts and shipments.
 
@@ -42,23 +40,6 @@ Each ledger row represents an inventory event. The opening row establishes the s
 | `CumDelta` | The cumulative change for the item |
 | `Projected_OnHand` | The stock balance after the event |
 
-### The opening stock
-
-The process normalizes item names and sums the inventory snapshot’s `On Hand` quantity by item. Each item receives an `OPEN` row dated today, with `Source = Snapshot` and `Delta = 0`.
-
-The opening quantity enters the balance separately. The zero delta prevents the ledger from counting that stock twice.
-
-### Inbound supply
-
-HQ supply uses `Kind = IN` and `Source = HQ`. Its event date equals the shipping schedule sheet’s `ship date` plus five days.
-
-Local supply uses `Kind = IN` and `Source = USA`. Its event date comes from the POD ship date. Both sources use a positive `Delta = Qty(+)`.
-
-These date rules represent the supplied workflow. The five-day offset is a planning assumption for HQ supply, not a universal transit time.
-
-### Outbound demand
-
-Each positive required quantity in the structured sales order data becomes an outbound event. The row uses `Kind = OUT`, `Source = SO`, and the sales order’s `Ship Date`. Its delta is negative: `Delta = -Qty(-)`.
 
 ### The projected balance
 
@@ -90,22 +71,6 @@ The final balance reaches 18 only after the unconfirmed supply event. That quant
 
 The example places the receipt before the shipment on November 5. The supplied logic does not specify a general rule for events on the same date. Their order affects intermediate balances, even when the final daily balance stays the same.
 
-## Unconfirmed dates remain visible
-
-Rows dated `2099-12-31` or later remain in the calculation. Quotation Lookup displays them in a gray **Unconfirmed dates** zone. These dates act as placeholders and do not represent delivery commitments.
-
-The manual describes two specific placeholders:
-
-| Date | Meaning in the manual |
-| --- | --- |
-| `2099-12-31` | A sales order without an assigned ship date |
-| `2100-01-05` | A POD without an assigned ship date |
-
-The illustrative ledger above uses `2099-12-31` for generic unconfirmed supply, as in the supplied example. Both conventions place that event in the same unconfirmed zone.
-
-Quotation Lookup highlights the lowest `Projected_OnHand` across the entire ledger in green, including placeholder rows. Green identifies the minimum value. It does not guarantee that the balance is positive or that a delivery date is feasible.
-
-A negative minimum exposes a shortage at some point in the event sequence. Unscheduled PODs can cause this result because their supply appears after dated demand. The timeline distinguishes that timing gap from the final stock total.
 
 ## A quotation must preserve later commitments
 
@@ -146,4 +111,3 @@ Ledger provides a dated projection based on the records available to it. It does
 
 For my workflow, the first gain is a traceable basis for decisions. I can see the projected balance for an item and the orders behind each change. That evidence supports a discussion about delivery dates before we commit material to a new order.
 
-> Source: the supplied ledger-generation notes and Quotation Lookup manual, slides 2–9. The examples illustrate the documented workflow, not live inventory.
