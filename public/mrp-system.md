@@ -1,9 +1,5 @@
 # MRP System: The Inventory Ledger
 
-<figure>
-  <img src="/images/mrp-ledger-header.webp" alt="Notebook illustration of computer components, a projected inventory line with a shortage, and a delivery calendar." width="2172" height="724" fetchpriority="high" />
-</figure>
-
 QuickBooks is a reliable accounting system, but I often have to review several separate reports to make a single material planning decision. I built this MRP system to bring those reports together and see how incoming supply and customer demand affect inventory over time.
 
 At the core is a [**time-phased inventory ledger**](https://docs.oracle.com/en/applications/jd-edwards/localizations/9.2/eoape/understanding-the-inventory-ledger.html) that shows how much stock we expect to have on any given date. The ledger answers these questions:
