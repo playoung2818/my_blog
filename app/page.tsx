@@ -168,7 +168,6 @@ export default async function Home() {
         </div>
         <section className="project-list" aria-labelledby="projects-heading">
           <h2 id="projects-heading" className="section-header">Projects</h2>
-          <p className="muted small">Most recently updated first</p>
           <ul className="post-list">
             {updatedPosts.map((post) => (
               <li key={post.title} className="post-row">
